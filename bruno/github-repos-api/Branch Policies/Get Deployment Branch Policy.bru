@@ -1,0 +1,68 @@
+meta {
+  name: Get Deployment Branch Policy
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies/:branch_policy_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  environment_name: {{environment}}
+  branch_policy_id: 1
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies/:branch_policy_id
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      environment_name: environment
+      branch_policy_id: 1
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 364662,
+          "node_id": "MDE2OkdhdGVCcmFuY2hQb2xpY3kzNjQ2NjI=",
+          "name": "release/*"
+        }
+      '''
+    }
+  }
+}

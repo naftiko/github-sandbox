@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "github-organizations-api",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

@@ -1,0 +1,138 @@
+meta {
+  name: Add Or Update Team Membership For User
+  type: http
+  seq: 10
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/memberships/:username
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  team_slug: naftiko
+  username: naftiko
+}
+
+body:json {
+  {
+    "role": ""
+  }
+}
+
+example {
+  name: Response if user's membership with team is now pending
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/memberships/:username
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "role": "maintainer"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "url": "https://api.github.com/teams/1/memberships/octocat",
+          "role": "member",
+          "state": "pending"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response (Add or update team membership for an organization member)
+  description: Forbidden if team synchronization is set up
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/memberships/:username
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "role": "maintainer"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response (Add or update team membership for an organization member)
+  description: Unprocessable Entity if you attempt to add an organization to a team
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/memberships/:username
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "role": "maintainer"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

@@ -1,0 +1,84 @@
+meta {
+  name: Get Team Membership For User
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/memberships/:username
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  team_slug: naftiko
+  username: naftiko
+}
+
+example {
+  name: Response if user is a team maintainer
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/memberships/:username
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      username: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "url": "https://api.github.com/teams/1/memberships/octocat",
+          "role": "maintainer",
+          "state": "active"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: if user has no team membership
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/memberships/:username
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

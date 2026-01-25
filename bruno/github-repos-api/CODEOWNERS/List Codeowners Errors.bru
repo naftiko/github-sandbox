@@ -1,0 +1,128 @@
+meta {
+  name: List Codeowners Errors
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/codeowners/errors
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~ref: reference
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/codeowners/errors
+    method: GET
+    mode: none
+    params:query: {
+      ~ref: reference
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "errors": [
+            {
+              "line": 3,
+              "column": 1,
+              "kind": "Invalid pattern",
+              "source": "***/*.rb @monalisa",
+              "suggestion": "Did you mean `**/*.rb`?",
+              "message": "Invalid pattern on line 3: Did you mean `**/*.rb`?\n\n  ***/*.rb @monalisa\n  ^",
+              "path": ".github/CODEOWNERS"
+            },
+            {
+              "line": 7,
+              "column": 7,
+              "kind": "Invalid owner",
+              "source": "*.txt docs@",
+              "suggestion": "Did you mean `**/*.rb`?",
+              "message": "Invalid owner on line 7:\n\n  *.txt docs@\n        ^",
+              "path": ".github/CODEOWNERS"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/codeowners/errors
+    method: GET
+    mode: none
+    params:query: {
+      ~ref: reference
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

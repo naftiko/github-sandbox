@@ -1,0 +1,73 @@
+meta {
+  name: Update The Username For User
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/admin/users/:username
+  body: json
+  auth: inherit
+}
+
+params:path {
+  username: naftiko
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "login": ""
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/admin/users/:username
+    method: PATCH
+    mode: json
+    params:path: {
+      username: naftiko
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "login": "thenewmonalisa"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 202
+      text: Accepted
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Job queued to rename user. It may take a few minutes to complete.",
+          "url": "https://api.github.com/user/1"
+        }
+      '''
+    }
+  }
+}

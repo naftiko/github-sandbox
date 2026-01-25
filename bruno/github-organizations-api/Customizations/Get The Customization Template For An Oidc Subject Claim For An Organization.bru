@@ -1,0 +1,51 @@
+meta {
+  name: Get The Customization Template For An Oidc Subject Claim For An Organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/oidc/customization/sub
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/oidc/customization/sub
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "include_claim_keys": [
+            "repo",
+            "context"
+          ]
+        }
+      '''
+    }
+  }
+}

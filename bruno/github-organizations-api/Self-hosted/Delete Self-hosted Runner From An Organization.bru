@@ -1,0 +1,45 @@
+meta {
+  name: Delete Self-hosted Runner From An Organization
+  type: http
+  seq: 11
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/actions/runners/:runner_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  runner_id: 1
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/runners/:runner_id
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      runner_id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

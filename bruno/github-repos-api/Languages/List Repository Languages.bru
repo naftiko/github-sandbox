@@ -1,0 +1,63 @@
+meta {
+  name: List Repository Languages
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/languages
+  body: none
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/languages
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "C": 78769,
+          "Python": 7769
+        }
+      '''
+    }
+  }
+}

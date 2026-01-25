@@ -1,0 +1,289 @@
+meta {
+  name: Create Blob
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/git/blobs
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "content": "",
+    "encoding": ""
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/blobs
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "content": "Content of the blob",
+        "encoding": "utf-8"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "url": "https://api.github.com/repos/octocat/example/git/blobs/3a0f86fb8db8eea7ccbb9a95f325ddbedfb25e15",
+          "sha": "3a0f86fb8db8eea7ccbb9a95f325ddbedfb25e15"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response (default)
+  description: Forbidden
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/blobs
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "content": "Content of the blob",
+        "encoding": "utf-8"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response (default)
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/blobs
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "content": "Content of the blob",
+        "encoding": "utf-8"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 409 Response (default)
+  description: Conflict
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/blobs
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "content": "Content of the blob",
+        "encoding": "utf-8"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 409
+      text: Conflict
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response (default)
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/blobs
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "content": "Content of the blob",
+        "encoding": "utf-8"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

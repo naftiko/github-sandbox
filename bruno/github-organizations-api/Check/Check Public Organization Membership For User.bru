@@ -1,0 +1,74 @@
+meta {
+  name: Check Public Organization Membership For User
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/public_members/:username
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  username: naftiko
+}
+
+example {
+  name: 204 Response
+  description: Response if user is a public member
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/public_members/:username
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Not Found if user is not a public member
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/public_members/:username
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

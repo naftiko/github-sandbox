@@ -1,0 +1,322 @@
+meta {
+  name: Add An Email Address For The Authenticated User
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/user/emails
+  body: json
+  auth: inherit
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default (Example adding multiple email addresses)
+  
+  request: {
+    url: {{baseUrl}}/user/emails
+    method: POST
+    mode: json
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "emails": [
+          "octocat@github.com",
+          "mona@github.com",
+          "octocat@octocat.org"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "email": "octocat@octocat.org",
+            "primary": false,
+            "verified": false,
+            "visibility": "public"
+          },
+          {
+            "email": "octocat@github.com",
+            "primary": false,
+            "verified": false,
+            "visibility": ""
+          },
+          {
+            "email": "mona@github.com",
+            "primary": false,
+            "verified": false,
+            "visibility": ""
+          }
+        ]
+      '''
+    }
+  }
+}
+
+example {
+  name: 304 Response (Example adding multiple email addresses)
+  description: Not modified
+  
+  request: {
+    url: {{baseUrl}}/user/emails
+    method: POST
+    mode: json
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "emails": [
+          "octocat@github.com",
+          "mona@github.com",
+          "octocat@octocat.org"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 304
+      text: Not Modified
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: Default (Example adding multiple email addresses)
+  
+  request: {
+    url: {{baseUrl}}/user/emails
+    method: POST
+    mode: json
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "emails": [
+          "octocat@github.com",
+          "mona@github.com",
+          "octocat@octocat.org"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default (Example adding multiple email addresses)
+  
+  request: {
+    url: {{baseUrl}}/user/emails
+    method: POST
+    mode: json
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "emails": [
+          "octocat@github.com",
+          "mona@github.com",
+          "octocat@octocat.org"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default (Example adding multiple email addresses)
+  
+  request: {
+    url: {{baseUrl}}/user/emails
+    method: POST
+    mode: json
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "emails": [
+          "octocat@github.com",
+          "mona@github.com",
+          "octocat@octocat.org"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default (Example adding multiple email addresses)
+  
+  request: {
+    url: {{baseUrl}}/user/emails
+    method: POST
+    mode: json
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "emails": [
+          "octocat@github.com",
+          "mona@github.com",
+          "octocat@octocat.org"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Validation Failed",
+          "documentation_url": "https://docs.github.com/rest/reference/users#create-a-user",
+          "errors": [
+            {
+              "resource": "User",
+              "field": "login",
+              "message": "login is already taken",
+              "code": "already_exists",
+              "index": 0,
+              "value": "octocat"
+            },
+            {
+              "resource": "User",
+              "field": "email",
+              "message": "email is not a valid email address",
+              "code": "invalid",
+              "index": 1,
+              "value": "invalid-email"
+            },
+            {
+              "resource": "User",
+              "field": "scopes",
+              "code": "invalid",
+              "value": [
+                "read:user",
+                "invalid:scope",
+                "write:repo"
+              ]
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

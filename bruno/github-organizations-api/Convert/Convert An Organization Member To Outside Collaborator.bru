@@ -1,0 +1,318 @@
+meta {
+  name: Convert An Organization Member To Outside Collaborator
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/outside_collaborators/:username
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  username: naftiko
+}
+
+body:json {
+  {
+    "async": false
+  }
+}
+
+example {
+  name: default (Status code 202, asynchronous request)
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/outside_collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "async": true
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 202
+      text: Accepted
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: default (Status code 204, synchronous request)
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/outside_collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  
+    body:json: {
+      {}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 202
+      text: Accepted
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: 204 Response (Status code 202, asynchronous request)
+  description: User was converted
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/outside_collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "async": true
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 204 Response (Status code 204, synchronous request)
+  description: User was converted
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/outside_collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  
+    body:json: {
+      {}
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response (Status code 202, asynchronous request)
+  description: Forbidden if user is the last owner of the organization, not a member of the organization, or if the enterprise enforces a policy for inviting outside collaborators. For more information, see "[Enforcing repository management policies in your enterprise](https://docs.github.com/enterprise-server@3.9/admin/policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise#enforcing-a-policy-for-inviting-outside-collaborators-to-repositories)."
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/outside_collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "async": true
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response (Status code 204, synchronous request)
+  description: Forbidden if user is the last owner of the organization, not a member of the organization, or if the enterprise enforces a policy for inviting outside collaborators. For more information, see "[Enforcing repository management policies in your enterprise](https://docs.github.com/enterprise-server@3.9/admin/policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise#enforcing-a-policy-for-inviting-outside-collaborators-to-repositories)."
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/outside_collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  
+    body:json: {
+      {}
+    }
+  }
+  
+  response: {
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response (Status code 202, asynchronous request)
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/outside_collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "async": true
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response (Status code 204, synchronous request)
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/outside_collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  
+    body:json: {
+      {}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

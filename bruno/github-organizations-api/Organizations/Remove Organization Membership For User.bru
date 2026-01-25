@@ -1,0 +1,121 @@
+meta {
+  name: Remove Organization Membership For User
+  type: http
+  seq: 28
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/memberships/:username
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  username: naftiko
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/memberships/:username
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: Forbidden
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/memberships/:username
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/memberships/:username
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

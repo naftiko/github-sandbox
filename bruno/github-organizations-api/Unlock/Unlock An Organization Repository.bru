@@ -1,0 +1,86 @@
+meta {
+  name: Unlock An Organization Repository
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/migrations/:migration_id/repos/:repo_name/lock
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  migration_id: 1
+  repo_name: naftiko
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/migrations/:migration_id/repos/:repo_name/lock
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      migration_id: 1
+      repo_name: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/migrations/:migration_id/repos/:repo_name/lock
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      migration_id: 1
+      repo_name: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

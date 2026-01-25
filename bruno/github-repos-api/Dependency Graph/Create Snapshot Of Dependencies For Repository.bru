@@ -1,0 +1,129 @@
+meta {
+  name: Create Snapshot Of Dependencies For Repository
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/dependency-graph/snapshots
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "version": 0,
+    "job": {
+      "id": "",
+      "correlator": "",
+      "html_url": ""
+    },
+    "sha": "",
+    "ref": "",
+    "detector": {
+      "name": "",
+      "version": "",
+      "url": ""
+    },
+    "metadata": {},
+    "manifests": {},
+    "scanned": ""
+  }
+}
+
+example {
+  name: Default (example-of-a-dependency-submission)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/dependency-graph/snapshots
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "version": 0,
+        "sha": "ce587453ced02b1526dfb4cb910479d431683101",
+        "ref": "refs/heads/main",
+        "job": {
+          "correlator": "yourworkflowname_youractionname",
+          "id": "yourrunid"
+        },
+        "detector": {
+          "name": "octo-detector",
+          "version": "0.0.1",
+          "url": "https://github.com/octo-org/octo-repo"
+        },
+        "scanned": "2022-06-14T20:25:00Z",
+        "manifests": {
+          "package-lock.json": {
+            "name": "package-lock.json",
+            "file": {
+              "source_location": "src/package-lock.json"
+            },
+            "resolved": {
+              "@actions/core": {
+                "package_url": "pkg:/npm/%40actions/core@1.1.9",
+                "dependencies": [
+                  "@actions/http-client"
+                ]
+              },
+              "@actions/http-client": {
+                "package_url": "pkg:/npm/%40actions/http-client@1.0.7",
+                "dependencies": [
+                  "tunnel"
+                ]
+              },
+              "tunnel": {
+                "package_url": "pkg:/npm/tunnel@0.0.6"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 12345,
+          "created_at": "2018-05-04T01:14:52Z",
+          "message": "Dependency results for the repo have been successfully updated.",
+          "result": "SUCCESS"
+        }
+      '''
+    }
+  }
+}

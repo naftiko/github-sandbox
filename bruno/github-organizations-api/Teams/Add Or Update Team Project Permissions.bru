@@ -1,0 +1,101 @@
+meta {
+  name: Add Or Update Team Project Permissions
+  type: http
+  seq: 13
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/projects/:project_id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  team_slug: naftiko
+  project_id: 1
+}
+
+body:json {
+  {
+    "permission": ""
+  }
+}
+
+example {
+  name: 204 Response (Updates the permissions for the team to write for the project)
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/projects/:project_id
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      project_id: 1
+    }
+  
+    body:json: {
+      {
+        "permission": "write"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/projects/:project_id
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      project_id: 1
+    }
+  
+    body:json: {
+      {
+        "permission": "write"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Must have admin rights to Repository.",
+          "documentation_url": "https://docs.github.com/enterprise-server@3.9/rest/teams/teams#add-or-update-team-project-permissions"
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,78 @@
+meta {
+  name: Get Package Version For The Authenticated User
+  type: http
+  seq: 38
+}
+
+get {
+  url: {{baseUrl}}/user/packages/:package_type/:package_name/versions/:package_version_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  package_type: 
+  package_name: 
+  package_version_id: 
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/packages/:package_type/:package_name/versions/:package_version_id
+    method: GET
+    mode: none
+    params:path: {
+      package_type: 
+      package_name: 
+      package_version_id: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 214,
+          "name": "sha256:3561f0cff06caccddb99c93bd26e712fcc56a811de0f8ea7a17bb865f30b176a",
+          "url": "https://api.github.com/users/octocat/packages/container/hello_docker/versions/214",
+          "package_html_url": "https://github.com/users/octocat/packages/container/package/hello_docker",
+          "created_at": "2020-05-15T03:46:45Z",
+          "updated_at": "2020-05-15T03:46:45Z",
+          "html_url": "https://github.com/users/octocat/packages/container/hello_docker/214",
+          "metadata": {
+            "package_type": "container",
+            "container": {
+              "tags": [
+                "1.13.6"
+              ]
+            }
+          }
+        }
+      '''
+    }
+  }
+}

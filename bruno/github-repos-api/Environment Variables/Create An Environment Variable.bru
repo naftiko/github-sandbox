@@ -1,0 +1,76 @@
+meta {
+  name: Create An Environment Variable
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/variables
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  environment_name: environment
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "name": "",
+    "value": ""
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/variables
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      environment_name: environment
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "name": "USERNAME",
+        "value": "octocat"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}

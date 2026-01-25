@@ -1,0 +1,146 @@
+meta {
+  name: Create Deploy Key
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/keys
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "title": "",
+    "key": "",
+    "read_only": false
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/keys
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "title": "octocat@octomac",
+        "key": "ssh-rsa AAA...",
+        "read_only": true
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 1,
+          "key": "ssh-rsa AAA...",
+          "url": "https://api.github.com/repos/octocat/Hello-World/keys/1",
+          "title": "octocat@octomac",
+          "verified": true,
+          "created_at": "2014-12-10T15:53:42Z",
+          "read_only": true,
+          "added_by": "octocat",
+          "last_used": "2022-01-10T15:53:42Z"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response (default)
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/keys
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "title": "octocat@octomac",
+        "key": "ssh-rsa AAA...",
+        "read_only": true
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

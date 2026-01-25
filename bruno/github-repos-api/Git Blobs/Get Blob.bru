@@ -1,0 +1,212 @@
+meta {
+  name: Get Blob
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/git/blobs/:file_sha
+  body: none
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  file_sha: a63kkkdfff
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/blobs/:file_sha
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      file_sha: a63kkkdfff
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "content": "Q29udGVudCBvZiB0aGUgYmxvYg==",
+          "encoding": "base64",
+          "url": "https://api.github.com/repos/octocat/example/git/blobs/3a0f86fb8db8eea7ccbb9a95f325ddbedfb25e15",
+          "sha": "3a0f86fb8db8eea7ccbb9a95f325ddbedfb25e15",
+          "size": 19,
+          "node_id": "Q29udGVudCBvZiB0aGUgYmxvYg=="
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: Forbidden
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/blobs/:file_sha
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      file_sha: a63kkkdfff
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/blobs/:file_sha
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      file_sha: a63kkkdfff
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/blobs/:file_sha
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      file_sha: a63kkkdfff
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

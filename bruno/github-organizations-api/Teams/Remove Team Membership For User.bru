@@ -1,0 +1,77 @@
+meta {
+  name: Remove Team Membership For User
+  type: http
+  seq: 11
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/memberships/:username
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  team_slug: naftiko
+  username: naftiko
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/memberships/:username
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: Forbidden if team synchronization is set up
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/memberships/:username
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

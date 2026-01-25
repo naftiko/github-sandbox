@@ -1,0 +1,50 @@
+meta {
+  name: Get Announcement Banner For Organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/announcement
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: Announcement banner
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/announcement
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "announcement": "Very **important** announcement about _something_.",
+          "expires_at": "2021-01-01T00:00:00.000+00:00",
+          "user_dismissible": false
+        }
+      '''
+    }
+  }
+}

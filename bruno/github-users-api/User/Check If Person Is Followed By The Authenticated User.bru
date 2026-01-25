@@ -1,0 +1,206 @@
+meta {
+  name: Check If Person Is Followed By The Authenticated User
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/user/following/:username
+  body: none
+  auth: inherit
+}
+
+params:path {
+  username: naftiko
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: 204 Response
+  description: if the person is followed by the authenticated user
+  
+  request: {
+    url: {{baseUrl}}/user/following/:username
+    method: GET
+    mode: none
+    params:path: {
+      username: naftiko
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 304 Response
+  description: Not modified
+  
+  request: {
+    url: {{baseUrl}}/user/following/:username
+    method: GET
+    mode: none
+    params:path: {
+      username: naftiko
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 304
+      text: Not Modified
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/following/:username
+    method: GET
+    mode: none
+    params:path: {
+      username: naftiko
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/following/:username
+    method: GET
+    mode: none
+    params:path: {
+      username: naftiko
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: if the person is not followed by the authenticated user
+  
+  request: {
+    url: {{baseUrl}}/user/following/:username
+    method: GET
+    mode: none
+    params:path: {
+      username: naftiko
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

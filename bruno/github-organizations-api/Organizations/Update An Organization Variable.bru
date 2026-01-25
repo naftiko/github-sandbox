@@ -1,0 +1,66 @@
+meta {
+  name: Update An Organization Variable
+  type: http
+  seq: 12
+}
+
+patch {
+  url: {{baseUrl}}/orgs/:org/actions/variables/:name
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  name: 
+}
+
+body:json {
+  {
+    "name": "",
+    "value": "",
+    "visibility": "",
+    "selected_repository_ids": []
+  }
+}
+
+example {
+  name: 204 Response (default)
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/variables/:name
+    method: PATCH
+    mode: json
+    params:path: {
+      org: {{owner}}
+      name: 
+    }
+  
+    body:json: {
+      {
+        "name": "USERNAME",
+        "value": "octocat",
+        "visibility": "selected",
+        "selected_repository_ids": [
+          1296269,
+          1296280
+        ]
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

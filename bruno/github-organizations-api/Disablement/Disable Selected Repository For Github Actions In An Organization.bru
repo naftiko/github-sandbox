@@ -1,0 +1,45 @@
+meta {
+  name: Disable Selected Repository For Github Actions In An Organization
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/actions/permissions/repositories/:repository_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  repository_id: 1
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/permissions/repositories/:repository_id
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      repository_id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

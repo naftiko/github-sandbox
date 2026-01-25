@@ -1,0 +1,193 @@
+---
+naftiko:
+
+  schema:  'https://github.com/naftiko/schema/blob/main/core/capability/capabiity-schema.yml'
+
+info:
+
+  name: GitHub API Sandbox
+  description: This is a GitHub sandbox that uses OpenAPI, Microcks, and Bruno to provide a 3rd-party API sandbox for GitHub.
+
+  tags:
+
+    - GitHub
+    - Sandbox
+
+ports:   
+
+  source:
+
+    - adapter: HTTP
+      aid: github-organizations-openapi
+      title: GitHub Organization API
+      description: The REST API for managing GitHub organizations.
+      openApi:
+
+        - $ref: 'openapi/github-organizations-openapi.yml'      
+
+    - adapter: HTTP
+      aid: github-projects-openapi
+      title: GitHub Projects API
+      description: The REST API for managing GitHub projects.
+      openApi:
+
+        - $ref: 'openapi/github-projects-openapi.yml'          
+
+    - adapter: HTTP
+      aid: github-repos-openapi
+      title: GitHub Repos API
+      description: The REST API for managing GitHub repositories.
+      openApi:
+
+        - $ref: 'openapi/github-repos-api-openapi.yml'  
+
+    - adapter: HTTP
+      aid: github-search-openapi
+      title: GitHub Search API
+      description: The REST API for working with GitHub search.
+      openApi:
+
+        - $ref: 'openapi/github-search-api-openapi.yml'  
+
+    - adapter: HTTP
+      aid: github-users-openapi
+      title: GitHub Users API
+      description: The REST API for managing GitHub users.
+      openApi:
+
+        - $ref: 'openapi/github-users-api-openapi.yml'                          
+
+virtualization:
+
+  sandboxes: 
+
+    - name: GitHub Organizations REST API Sandbox
+      type: REST
+      url: http://localhost:8080/rest/github-organizations-api/1.0.0  
+
+    - name: GitHub Organizations MCP Sandbox
+      type: MCP
+      url: http://localhost:8080/mcp/github-organizations-api/1.0.0/sse      
+
+    - name: GitHub Projects REST API Sandbox
+      type: REST
+      url: http://localhost:8080/rest/github-projects-api/1.0.0  
+
+    - name: GitHub Projects MCP Sandbox
+      type: MCP
+      url: http://localhost:8080/mcp/github-projects-api/1.0.0/sse    
+
+    - name: GitHub Repos REST API Sandbox
+      type: REST
+      url: http://localhost:8080/rest/github-repos-api/1.0.0  
+
+    - name: GitHub Repos MCP Sandbox
+      type: MCP
+      url: http://localhost:8080/mcp/github-repos-api/1.0.0/sse   
+
+    - name: GitHub Search REST API Sandbox
+      type: REST
+      url: http://localhost:8080/rest/github-search-api/1.0.0  
+
+    - name: GitHub Search MCP Sandbox
+      type: MCP
+      url: http://localhost:8080/mcp/github-search-api/1.0.0/sse   
+
+    - name: GitHub Users REST API Sandbox
+      type: REST
+      url: http://localhost:8080/rest/github-users-api/1.0.0  
+
+    - name: GitHub Users MCP Sandbox
+      type: MCP
+      url: http://localhost:8080/mcp/github-users-api/1.0.0/sse  
+
+metrics:
+
+  numberOfPaths: 26
+  numberOfOperations: 34
+  numberOfReadOperations: 14
+  numberOfWriteOperations: 20
+  numberOfSchemas: 127
+  numberOfResponses: 9
+  numberOfParameters: 12
+  numberOfExamples: 69
+  numberOfRequestBodies: 0
+  numberOfHeaders: 1
+
+useCase:
+
+  - $ref: 'https://github.com/naftiko/schema/blob/main/secondary/use-case/examples/use-case-example-api-sandbox.yml' 
+
+stakeholders:
+
+  - FN: Kin Lane
+    ROLE: Chief Community Officer (CCO)
+    EMAIL: kinlane@naftiko.io
+    SOCIALPROFILE: https://www.linkedin.com/in/kinlane/
+
+change:
+
+  state: New
+  
+  schemaVersion: 0.1.0
+  capabilityVersion: 0.1.0
+
+  updated: 2026-01-24T00:00:00Z
+  created: 2026-01-24T00:00:00Z  
+
+source:
+
+  httpUrl: https://github.com/naftiko/github-sandbox
+  sshUrl: git@github.com:naftiko/github-sandbox.git
+
+support:
+
+  issues: https://github.com/naftiko/github-sandbox/issues
+  discussions: https://github.com/orgs/naftiko/discussions
+
+standards:
+
+  - name: Naftiko Capabilities
+    description: This uses a exploratory schema to help inform and shape capabilities.
+    docUrl: https://naftiko.github.io/technology/docs/capabilities/
+
+  - name: OpenAPI
+    description: This uses OpenAPI to define access to all HTTP APIs.
+    docUrl: https://naftiko.github.io/technology/docs/standards/openapi/
+
+  - name: JSON Schema
+    description: This uses JSON Schema to define and validate all entities used.
+    docUrl: https://naftiko.github.io/technology/docs/standards/json-schema/    
+
+  - name: Model Context Protocol
+    description: This uses MCP expresed as JSON schema to define each MCP server.
+    docUrl: https://naftiko.github.io/technology/docs/standards/model-context-protocol/
+
+  - name: Bruno Collections
+    description: This uses Bruno Collections to define each executable HTTP API integration.
+    docUrl: https://naftiko.github.io/technology/docs/standards/bruno-collections/        
+
+  - name: Bruno Environments
+    description: This uses Bruno Environments to store keys for each API to use in automation.
+    docUrl: https://naftiko.github.io/technology/docs/standards/bruno-environments/  
+
+  - name: API Commons
+    description: This uses an API Commons schema to define the plans and rate limits.
+    docUrl: https://naftiko.github.io/technology/docs/standards/api-commons/      
+
+services:
+
+  - aid: github
+    name: GitHub
+    description: GitHub is a web-based platform for hosting and collaborating on software projects. It’s built around Git, a version control system that tracks changes to files over time.
+    docUrl: https://naftiko.github.io/technology/docs/services/github/
+    apisJson: https://raw.githubusercontent.com/api-evangelist/github/refs/heads/main/apis.yml
+    loginUrl: https://github.com/login
+    signUpUrl: https://github.com/signup
+    termsOfServiceUrl: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+    privacyPolicyUrl: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+
+observability: 
+
+    visibility: Public  
+

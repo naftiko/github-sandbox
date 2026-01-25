@@ -1,0 +1,73 @@
+meta {
+  name: List Public Keys For User
+  type: http
+  seq: 74
+}
+
+get {
+  url: {{baseUrl}}/users/:username/keys
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 
+  ~page: 
+}
+
+params:path {
+  username: naftiko
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/users/:username/keys
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      username: naftiko
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "id": 1,
+            "key": "ssh-rsa AAA..."
+          }
+        ]
+      '''
+    }
+  }
+}

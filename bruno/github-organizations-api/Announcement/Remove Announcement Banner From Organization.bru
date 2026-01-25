@@ -1,0 +1,43 @@
+meta {
+  name: Remove Announcement Banner From Organization
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/announcement
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/announcement
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

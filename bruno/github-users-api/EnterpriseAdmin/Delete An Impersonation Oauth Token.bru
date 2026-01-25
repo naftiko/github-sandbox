@@ -1,0 +1,55 @@
+meta {
+  name: Delete An Impersonation Oauth Token
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{baseUrl}}/admin/users/:username/authorizations
+  body: none
+  auth: inherit
+}
+
+params:path {
+  username: naftiko
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/admin/users/:username/authorizations
+    method: DELETE
+    mode: none
+    params:path: {
+      username: naftiko
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

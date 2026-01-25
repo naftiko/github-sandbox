@@ -1,0 +1,63 @@
+meta {
+  name: Request Github Enterprise Server Pages Build
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/pages/builds
+  body: none
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/pages/builds
+    method: POST
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "url": "https://api.github.com/repos/github/developer.github.com/pages/builds/latest",
+          "status": "queued"
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,76 @@
+meta {
+  name: Get Self-hosted Runner For An Organization
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/runners/:runner_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  runner_id: 1
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/runners/:runner_id
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      runner_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 23,
+          "name": "MBP",
+          "os": "macos",
+          "status": "online",
+          "busy": true,
+          "labels": [
+            {
+              "id": 5,
+              "name": "self-hosted",
+              "type": "read-only"
+            },
+            {
+              "id": 7,
+              "name": "X64",
+              "type": "read-only"
+            },
+            {
+              "id": 20,
+              "name": "macOS",
+              "type": "read-only"
+            },
+            {
+              "id": 21,
+              "name": "no-gpu",
+              "type": "custom"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

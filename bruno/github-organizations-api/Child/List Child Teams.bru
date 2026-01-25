@@ -1,0 +1,85 @@
+meta {
+  name: List Child Teams
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/teams
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 
+  ~page: 
+}
+
+params:path {
+  org: {{owner}}
+  team_slug: naftiko
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/teams
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "id": 2,
+            "node_id": "MDQ6VGVhbTI=",
+            "url": "https://api.github.com/teams/2",
+            "name": "Original Roster",
+            "slug": "original-roster",
+            "description": "Started it all.",
+            "privacy": "closed",
+            "permission": "admin",
+            "members_url": "https://api.github.com/teams/2/members{/member}",
+            "repositories_url": "https://api.github.com/teams/2/repos",
+            "parent": {
+              "id": 1,
+              "node_id": "MDQ6VGVhbTE=",
+              "url": "https://api.github.com/teams/1",
+              "html_url": "https://github.com/orgs/github/teams/justice-league",
+              "name": "Justice League",
+              "slug": "justice-league",
+              "description": "A great team.",
+              "privacy": "closed",
+              "permission": "admin",
+              "members_url": "https://api.github.com/teams/1/members{/member}",
+              "repositories_url": "https://api.github.com/teams/1/repos"
+            },
+            "html_url": "https://github.com/orgs/rails/teams/core"
+          }
+        ]
+      '''
+    }
+  }
+}

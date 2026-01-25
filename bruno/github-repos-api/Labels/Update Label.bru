@@ -1,0 +1,86 @@
+meta {
+  name: Update Label
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/repos/:owner/:repo/labels/:name
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  name: naftiko
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "new_name": "",
+    "color": "",
+    "description": ""
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/labels/:name
+    method: PATCH
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      name: naftiko
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "new_name": "bug :bug:",
+        "description": "Small bug fix required",
+        "color": "b01f26"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 208045946,
+          "node_id": "MDU6TGFiZWwyMDgwNDU5NDY=",
+          "url": "https://api.github.com/repos/octocat/Hello-World/labels/bug%20:bug:",
+          "name": "bug :bug:",
+          "description": "Small bug fix required",
+          "color": "b01f26",
+          "default": true
+        }
+      '''
+    }
+  }
+}

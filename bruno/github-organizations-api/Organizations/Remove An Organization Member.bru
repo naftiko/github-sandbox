@@ -1,0 +1,83 @@
+meta {
+  name: Remove An Organization Member
+  type: http
+  seq: 26
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/members/:username
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  username: naftiko
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/members/:username
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: Forbidden
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/members/:username
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

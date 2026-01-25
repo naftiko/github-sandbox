@@ -1,0 +1,83 @@
+meta {
+  name: Delete An Organization Webhook
+  type: http
+  seq: 22
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/hooks/:hook_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  hook_id: 1
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks/:hook_id
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      hook_id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks/:hook_id
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      hook_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

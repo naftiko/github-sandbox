@@ -1,0 +1,200 @@
+meta {
+  name: Decline Repository Invitation
+  type: http
+  seq: 47
+}
+
+delete {
+  url: {{baseUrl}}/user/repository_invitations/:invitation_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  invitation_id: 
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/user/repository_invitations/:invitation_id
+    method: DELETE
+    mode: none
+    params:path: {
+      invitation_id: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 304 Response
+  description: Not modified
+  
+  request: {
+    url: {{baseUrl}}/user/repository_invitations/:invitation_id
+    method: DELETE
+    mode: none
+    params:path: {
+      invitation_id: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 304
+      text: Not Modified
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/repository_invitations/:invitation_id
+    method: DELETE
+    mode: none
+    params:path: {
+      invitation_id: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/repository_invitations/:invitation_id
+    method: DELETE
+    mode: none
+    params:path: {
+      invitation_id: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/repository_invitations/:invitation_id
+    method: DELETE
+    mode: none
+    params:path: {
+      invitation_id: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 409
+      text: Conflict
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}

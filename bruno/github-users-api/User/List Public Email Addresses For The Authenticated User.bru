@@ -1,0 +1,216 @@
+meta {
+  name: List Public Email Addresses For The Authenticated User
+  type: http
+  seq: 42
+}
+
+get {
+  url: {{baseUrl}}/user/public_emails
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 
+  ~page: 
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/public_emails
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "email": "octocat@github.com",
+            "verified": true,
+            "primary": true,
+            "visibility": "public"
+          }
+        ]
+      '''
+    }
+  }
+}
+
+example {
+  name: 304 Response
+  description: Not modified
+  
+  request: {
+    url: {{baseUrl}}/user/public_emails
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 304
+      text: Not Modified
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/public_emails
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/public_emails
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/public_emails
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}

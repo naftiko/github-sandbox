@@ -1,0 +1,83 @@
+meta {
+  name: Download An Organization Migration Archive
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/migrations/:migration_id/archive
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  migration_id: 1
+}
+
+example {
+  name: 302 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/migrations/:migration_id/archive
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      migration_id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 302
+      text: Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/migrations/:migration_id/archive
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      migration_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

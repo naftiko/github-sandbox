@@ -1,0 +1,134 @@
+meta {
+  name: Generate Release Notes Content For Release
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/releases/generate-notes
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "tag_name": "",
+    "target_commitish": "",
+    "previous_tag_name": "",
+    "configuration_file_path": ""
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/releases/generate-notes
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "tag_name": "v1.0.0",
+        "target_commitish": "main",
+        "previous_tag_name": "v0.9.2",
+        "configuration_file_path": ".github/custom_release_config.yml"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "name": "Release v1.0.0 is now available!",
+          "body": "##Changes in Release v1.0.0 ... ##Contributors @monalisa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response (default)
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/releases/generate-notes
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "tag_name": "v1.0.0",
+        "target_commitish": "main",
+        "previous_tag_name": "v0.9.2",
+        "configuration_file_path": ".github/custom_release_config.yml"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

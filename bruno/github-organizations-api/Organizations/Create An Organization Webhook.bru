@@ -1,0 +1,207 @@
+meta {
+  name: Create An Organization Webhook
+  type: http
+  seq: 19
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/hooks
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+body:json {
+  {
+    "name": "",
+    "config": {
+      "url": "",
+      "content_type": "",
+      "secret": "",
+      "insecure_ssl": "",
+      "username": "",
+      "password": ""
+    },
+    "events": [],
+    "active": false
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks
+    method: POST
+    mode: json
+    params:path: {
+      org: {{owner}}
+    }
+  
+    body:json: {
+      {
+        "name": "web",
+        "active": true,
+        "events": [
+          "push",
+          "pull_request"
+        ],
+        "config": {
+          "url": "http://example.com/webhook",
+          "content_type": "json"
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 1,
+          "url": "https://api.github.com/orgs/octocat/hooks/1",
+          "ping_url": "https://api.github.com/orgs/octocat/hooks/1/pings",
+          "deliveries_url": "https://api.github.com/orgs/octocat/hooks/1/deliveries",
+          "name": "web",
+          "events": [
+            "push",
+            "pull_request"
+          ],
+          "active": true,
+          "config": {
+            "url": "http://example.com",
+            "content_type": "json"
+          },
+          "updated_at": "2011-09-06T20:39:23Z",
+          "created_at": "2011-09-06T17:26:27Z",
+          "type": "Organization"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response (default)
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks
+    method: POST
+    mode: json
+    params:path: {
+      org: {{owner}}
+    }
+  
+    body:json: {
+      {
+        "name": "web",
+        "active": true,
+        "events": [
+          "push",
+          "pull_request"
+        ],
+        "config": {
+          "url": "http://example.com/webhook",
+          "content_type": "json"
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response (default)
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks
+    method: POST
+    mode: json
+    params:path: {
+      org: {{owner}}
+    }
+  
+    body:json: {
+      {
+        "name": "web",
+        "active": true,
+        "events": [
+          "push",
+          "pull_request"
+        ],
+        "config": {
+          "url": "http://example.com/webhook",
+          "content_type": "json"
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

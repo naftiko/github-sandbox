@@ -1,0 +1,205 @@
+meta {
+  name: Get Tree
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/git/trees/:tree_sha
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~recursive: 
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  tree_sha: a63kkkdfff
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default response
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/trees/:tree_sha
+    method: GET
+    mode: none
+    params:query: {
+      ~recursive: 
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      tree_sha: a63kkkdfff
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "sha": "9fb037999f264ba9a7fc6274d15fa3ae2ab98312",
+          "url": "https://api.github.com/repos/octocat/Hello-World/trees/9fb037999f264ba9a7fc6274d15fa3ae2ab98312",
+          "tree": [
+            {
+              "path": "file.rb",
+              "mode": "100644",
+              "type": "blob",
+              "size": 30,
+              "sha": "44b4fc6d56897b048c772eb4087f854f46256132",
+              "url": "https://api.github.com/repos/octocat/Hello-World/git/blobs/44b4fc6d56897b048c772eb4087f854f46256132"
+            },
+            {
+              "path": "subdir",
+              "mode": "040000",
+              "type": "tree",
+              "sha": "f484d249c660418515fb01c2b9662073663c242e",
+              "url": "https://api.github.com/repos/octocat/Hello-World/git/blobs/f484d249c660418515fb01c2b9662073663c242e"
+            },
+            {
+              "path": "exec_file",
+              "mode": "100755",
+              "type": "blob",
+              "size": 75,
+              "sha": "45b983be36b73c0788dc9cbcb76cbb80fc7bb057",
+              "url": "https://api.github.com/repos/octocat/Hello-World/git/blobs/45b983be36b73c0788dc9cbcb76cbb80fc7bb057"
+            }
+          ],
+          "truncated": false
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/trees/:tree_sha
+    method: GET
+    mode: none
+    params:query: {
+      ~recursive: 
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      tree_sha: a63kkkdfff
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/trees/:tree_sha
+    method: GET
+    mode: none
+    params:query: {
+      ~recursive: 
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      tree_sha: a63kkkdfff
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,62 @@
+meta {
+  name: Rerequest Check Suite
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/check-suites/:check_suite_id/rerequest
+  body: none
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  check_suite_id: 1
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/check-suites/:check_suite_id/rerequest
+    method: POST
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      check_suite_id: 1
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}

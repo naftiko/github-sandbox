@@ -1,0 +1,115 @@
+meta {
+  name: Mark Repository Notifications As Read
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/notifications
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "last_read_at": ""
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/notifications
+    method: PUT
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "last_read_at": "2019-01-01T00:00:00Z"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 202
+      text: Accepted
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Unread notifications couldn't be marked in a single request. Notifications are being marked as read in the background."
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 205 Response (default)
+  description: Reset Content
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/notifications
+    method: PUT
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "last_read_at": "2019-01-01T00:00:00Z"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 205
+      text: Reset Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

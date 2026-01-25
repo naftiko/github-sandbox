@@ -1,0 +1,67 @@
+meta {
+  name: Unsuspend User
+  type: http
+  seq: 95
+}
+
+delete {
+  url: {{baseUrl}}/users/:username/suspended
+  body: json
+  auth: inherit
+}
+
+params:path {
+  username: naftiko
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "reason": ""
+  }
+}
+
+example {
+  name: 204 Response (reason)
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/users/:username/suspended
+    method: DELETE
+    mode: json
+    params:path: {
+      username: naftiko
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "reason": "Unsuspended after leave of absence."
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

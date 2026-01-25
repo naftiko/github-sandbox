@@ -1,0 +1,74 @@
+meta {
+  name: Add Security Manager Team
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/security-managers/teams/:team_slug
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  team_slug: naftiko
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/security-managers/teams/:team_slug
+    method: PUT
+    mode: none
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 409 Response
+  description: The organization has reached the maximum number of security manager teams.
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/security-managers/teams/:team_slug
+    method: PUT
+    mode: none
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 409
+      text: Conflict
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

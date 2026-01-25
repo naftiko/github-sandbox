@@ -1,0 +1,124 @@
+meta {
+  name: List Branches For Head Commit
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/commits/:commit_sha/branches-where-head
+  body: none
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  commit_sha: a63kkkdfff
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/commits/:commit_sha/branches-where-head
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      commit_sha: a63kkkdfff
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "name": "branch_5",
+            "commit": {
+              "sha": "c5b97d5ae6c19d5c5df71a34c7fbeeda2479ccbc",
+              "url": "https://api.github.com/repos/octocat/Hello-World/commits/c5b97d5ae6c19d5c5df71a34c7fbeeda2479ccbc"
+            },
+            "protected": false
+          }
+        ]
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/commits/:commit_sha/branches-where-head
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      commit_sha: a63kkkdfff
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

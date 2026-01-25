@@ -1,0 +1,47 @@
+meta {
+  name: Delete Discussion
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/discussions/:discussion_number
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  team_slug: naftiko
+  discussion_number: 1
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/discussions/:discussion_number
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      discussion_number: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

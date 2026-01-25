@@ -1,0 +1,83 @@
+meta {
+  name: List Organizations For User
+  type: http
+  seq: 75
+}
+
+get {
+  url: {{baseUrl}}/users/:username/orgs
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 
+  ~page: 
+}
+
+params:path {
+  username: naftiko
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/users/:username/orgs
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      username: naftiko
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "login": "github",
+            "id": 1,
+            "node_id": "MDEyOk9yZ2FuaXphdGlvbjE=",
+            "url": "https://api.github.com/orgs/github",
+            "repos_url": "https://api.github.com/orgs/github/repos",
+            "events_url": "https://api.github.com/orgs/github/events",
+            "hooks_url": "https://api.github.com/orgs/github/hooks",
+            "issues_url": "https://api.github.com/orgs/github/issues",
+            "members_url": "https://api.github.com/orgs/github/members{/member}",
+            "public_members_url": "https://api.github.com/orgs/github/public_members{/member}",
+            "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+            "description": "A great organization"
+          }
+        ]
+      '''
+    }
+  }
+}

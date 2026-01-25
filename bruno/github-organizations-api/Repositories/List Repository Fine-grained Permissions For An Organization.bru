@@ -1,0 +1,59 @@
+meta {
+  name: List Repository Fine-grained Permissions For An Organization
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/repository-fine-grained-permissions
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/repository-fine-grained-permissions
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "name": "add_assignee",
+            "description": "Assign or remove a user"
+          },
+          {
+            "name": "remove_assignee",
+            "description": "Remove an assigned user"
+          },
+          {
+            "name": "add_label",
+            "description": "Add or remove a label"
+          }
+        ]
+      '''
+    }
+  }
+}

@@ -1,0 +1,47 @@
+meta {
+  name: Add Repository Access To Self-hosted Runner Group In An Organization
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/actions/runner-groups/:runner_group_id/repositories/:repository_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  runner_group_id: 1
+  repository_id: 1
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/runner-groups/:runner_group_id/repositories/:repository_id
+    method: PUT
+    mode: none
+    params:path: {
+      org: {{owner}}
+      runner_group_id: 1
+      repository_id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

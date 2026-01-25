@@ -1,0 +1,45 @@
+meta {
+  name: Delete An Organization Variable
+  type: http
+  seq: 13
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/actions/variables/:name
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  name: 
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/variables/:name
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      name: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

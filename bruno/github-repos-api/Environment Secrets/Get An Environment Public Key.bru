@@ -1,0 +1,65 @@
+meta {
+  name: Get An Environment Public Key
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/secrets/public-key
+  body: none
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  environment_name: environment
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/secrets/public-key
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      environment_name: environment
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "key_id": 12345678912345678,
+          "key": "2Sg8iYjAxxmI2LvUXpJjkYrMxURPc8r+dB7TJyvv1234"
+        }
+      '''
+    }
+  }
+}

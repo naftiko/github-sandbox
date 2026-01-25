@@ -1,0 +1,92 @@
+meta {
+  name: Check If User Follows Another User
+  type: http
+  seq: 69
+}
+
+get {
+  url: {{baseUrl}}/users/:username/following/:target_user
+  body: none
+  auth: inherit
+}
+
+params:path {
+  username: naftiko
+  target_user: 
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: 204 Response
+  description: if the user follows the target user
+  
+  request: {
+    url: {{baseUrl}}/users/:username/following/:target_user
+    method: GET
+    mode: none
+    params:path: {
+      username: naftiko
+      target_user: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: if the user does not follow the target user
+  
+  request: {
+    url: {{baseUrl}}/users/:username/following/:target_user
+    method: GET
+    mode: none
+    params:path: {
+      username: naftiko
+      target_user: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

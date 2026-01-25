@@ -1,0 +1,229 @@
+meta {
+  name: List Deliveries For An Organization Webhook
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/hooks/:hook_id/deliveries
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 
+  ~cursor: 
+  ~redelivery: 
+}
+
+params:path {
+  org: {{owner}}
+  hook_id: 1
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks/:hook_id/deliveries
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~cursor: 
+      ~redelivery: 
+    }
+  
+    params:path: {
+      org: {{owner}}
+      hook_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "id": 12345678,
+            "guid": "0b989ba4-242f-11e5-81e1-c7b6966d2516",
+            "delivered_at": "2019-06-03T00:57:16Z",
+            "redelivery": false,
+            "duration": 0.27,
+            "status": "OK",
+            "status_code": 200,
+            "event": "issues",
+            "action": "opened",
+            "installation_id": 123,
+            "repository_id": 456
+          },
+          {
+            "id": 123456789,
+            "guid": "0b989ba4-242f-11e5-81e1-c7b6966d2516",
+            "delivered_at": "2019-06-04T00:57:16Z",
+            "redelivery": true,
+            "duration": 0.28,
+            "status": "OK",
+            "status_code": 200,
+            "event": "issues",
+            "action": "opened",
+            "installation_id": 123,
+            "repository_id": 456
+          }
+        ]
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks/:hook_id/deliveries
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~cursor: 
+      ~redelivery: 
+    }
+  
+    params:path: {
+      org: {{owner}}
+      hook_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks/:hook_id/deliveries
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~cursor: 
+      ~redelivery: 
+    }
+  
+    params:path: {
+      org: {{owner}}
+      hook_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/scim+json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "detail": "",
+          "status": 0,
+          "scimType": "",
+          "schemas": []
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks/:hook_id/deliveries
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~cursor: 
+      ~redelivery: 
+    }
+  
+    params:path: {
+      org: {{owner}}
+      hook_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

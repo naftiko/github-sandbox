@@ -1,0 +1,99 @@
+meta {
+  name: Enable Git Lfs For Repository
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/lfs
+  body: none
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/lfs
+    method: PUT
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 202
+      text: Accepted
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: We will return a 403 with one of the following messages:
+  
+  - Git LFS support not enabled because Git LFS is globally disabled.
+  - Git LFS support not enabled because Git LFS is disabled for the root repository in the network.
+  - Git LFS support not enabled because Git LFS is disabled for <owner>.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/lfs
+    method: PUT
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

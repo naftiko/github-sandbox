@@ -1,0 +1,58 @@
+meta {
+  name: Set Selected Repositories Enabled For Github Actions In An Organization
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/actions/permissions/repositories
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+body:json {
+  {
+    "selected_repository_ids": []
+  }
+}
+
+example {
+  name: 204 Response (default)
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/permissions/repositories
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+    }
+  
+    body:json: {
+      {
+        "selected_repository_ids": [
+          32,
+          42
+        ]
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

@@ -1,0 +1,80 @@
+meta {
+  name: Remove Outside Collaborator From An Organization
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/outside_collaborators/:username
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  username: naftiko
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/outside_collaborators/:username
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/outside_collaborators/:username
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "You cannot specify an organization member to remove as an outside collaborator.",
+          "documentation_url": "https://docs.github.com/enterprise-server@3.9/rest/orgs/outside-collaborators#remove-outside-collaborator-from-an-organization"
+        }
+      '''
+    }
+  }
+}

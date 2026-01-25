@@ -1,0 +1,47 @@
+meta {
+  name: Remove Project From Team
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/projects/:project_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  team_slug: naftiko
+  project_id: 1
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/projects/:project_id
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      project_id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

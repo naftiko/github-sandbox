@@ -1,0 +1,257 @@
+meta {
+  name: Add Project Collaborator
+  type: http
+  seq: 15
+}
+
+put {
+  url: {{baseUrl}}/projects/:project_id/collaborators/:username
+  body: json
+  auth: inherit
+}
+
+params:path {
+  project_id: 1
+  username: naftiko
+}
+
+body:json {
+  {
+    "permission": ""
+  }
+}
+
+example {
+  name: 204 Response (Applying write permissions for the new collaborator)
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      project_id: 1
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "permission": "write"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 304 Response (Applying write permissions for the new collaborator)
+  description: Not modified
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      project_id: 1
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "permission": "write"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 304
+      text: Not Modified
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      project_id: 1
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "permission": "write"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Error message",
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      project_id: 1
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "permission": "write"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Error message",
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      project_id: 1
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "permission": "write"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Error message",
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/collaborators/:username
+    method: PUT
+    mode: json
+    params:path: {
+      project_id: 1
+      username: naftiko
+    }
+  
+    body:json: {
+      {
+        "permission": "write"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Validation Failed",
+          "errors": [],
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,61 @@
+meta {
+  name: List Connection Between An External Group And Team
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/external-groups
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  team_slug: naftiko
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/external-groups
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "groups": [
+            {
+              "group_id": 123,
+              "group_name": "Octocat admins",
+              "updated_at": "2021-01-24T11:31:04-06:00"
+            },
+            {
+              "group_id": 456,
+              "group_name": "Octocat docs members",
+              "updated_at": "2021-03-24T11:31:04-06:00"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

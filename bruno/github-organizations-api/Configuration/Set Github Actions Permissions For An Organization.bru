@@ -1,0 +1,57 @@
+meta {
+  name: Set Github Actions Permissions For An Organization
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/actions/permissions
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+body:json {
+  {
+    "enabled_repositories": "",
+    "allowed_actions": ""
+  }
+}
+
+example {
+  name: 204 Response (default)
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/permissions
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+    }
+  
+    body:json: {
+      {
+        "enabled_repositories": "all",
+        "allowed_actions": "selected"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

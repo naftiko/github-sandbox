@@ -1,0 +1,240 @@
+meta {
+  name: Get Project Permission For User
+  type: http
+  seq: 16
+}
+
+get {
+  url: {{baseUrl}}/projects/:project_id/collaborators/:username/permission
+  body: none
+  auth: inherit
+}
+
+params:path {
+  project_id: 1
+  username: naftiko
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/collaborators/:username/permission
+    method: GET
+    mode: none
+    params:path: {
+      project_id: 1
+      username: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "permission": "admin",
+          "user": {
+            "login": "octocat",
+            "id": 1,
+            "node_id": "MDQ6VXNlcjE=",
+            "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/octocat",
+            "html_url": "https://github.com/octocat",
+            "followers_url": "https://api.github.com/users/octocat/followers",
+            "following_url": "https://api.github.com/users/octocat/following{/other_user}",
+            "gists_url": "https://api.github.com/users/octocat/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/octocat/subscriptions",
+            "organizations_url": "https://api.github.com/users/octocat/orgs",
+            "repos_url": "https://api.github.com/users/octocat/repos",
+            "events_url": "https://api.github.com/users/octocat/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/octocat/received_events",
+            "type": "User",
+            "site_admin": false
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 304 Response
+  description: Not modified
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/collaborators/:username/permission
+    method: GET
+    mode: none
+    params:path: {
+      project_id: 1
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 304
+      text: Not Modified
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/collaborators/:username/permission
+    method: GET
+    mode: none
+    params:path: {
+      project_id: 1
+      username: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Error message",
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/collaborators/:username/permission
+    method: GET
+    mode: none
+    params:path: {
+      project_id: 1
+      username: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Error message",
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/collaborators/:username/permission
+    method: GET
+    mode: none
+    params:path: {
+      project_id: 1
+      username: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Error message",
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/collaborators/:username/permission
+    method: GET
+    mode: none
+    params:path: {
+      project_id: 1
+      username: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Validation Failed",
+          "errors": [],
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,65 @@
+meta {
+  name: Set Announcement Banner For Organization
+  type: http
+  seq: 11
+}
+
+patch {
+  url: {{baseUrl}}/orgs/:org/announcement
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+body:json {
+  {
+    "announcement": "",
+    "expires_at": ""
+  }
+}
+
+example {
+  name: Announcement banner
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/announcement
+    method: PATCH
+    mode: json
+    params:path: {
+      org: {{owner}}
+    }
+  
+    body:json: {
+      {
+        "announcement": "Very **important** announcement about _something_.",
+        "expires_at": "2021-01-01T00:00:00.000+00:00",
+        "user_dismissible": false
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "announcement": "Very **important** announcement about _something_.",
+          "expires_at": "2021-01-01T00:00:00.000+00:00",
+          "user_dismissible": false
+        }
+      '''
+    }
+  }
+}

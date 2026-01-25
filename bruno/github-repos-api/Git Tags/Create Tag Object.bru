@@ -1,0 +1,176 @@
+meta {
+  name: Create Tag Object
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/git/tags
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "tag": "",
+    "message": "",
+    "object": "",
+    "type": "",
+    "tagger": {
+      "name": "",
+      "email": "",
+      "date": ""
+    }
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/tags
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "tag": "v0.0.1",
+        "message": "initial version",
+        "object": "c3d0be41ecbe669545ee3e94d31ed9a4bc91ee3c",
+        "type": "commit",
+        "tagger": {
+          "name": "Monalisa Octocat",
+          "email": "octocat@github.com",
+          "date": "2011-06-17T14:53:35-07:00"
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "node_id": "MDM6VGFnOTQwYmQzMzYyNDhlZmFlMGY5ZWU1YmM3YjJkNWM5ODU4ODdiMTZhYw==",
+          "tag": "v0.0.1",
+          "sha": "940bd336248efae0f9ee5bc7b2d5c985887b16ac",
+          "url": "https://api.github.com/repos/octocat/Hello-World/git/tags/940bd336248efae0f9ee5bc7b2d5c985887b16ac",
+          "message": "initial version",
+          "tagger": {
+            "name": "Monalisa Octocat",
+            "email": "octocat@github.com",
+            "date": "2014-11-07T22:01:45Z"
+          },
+          "object": {
+            "type": "commit",
+            "sha": "c3d0be41ecbe669545ee3e94d31ed9a4bc91ee3c",
+            "url": "https://api.github.com/repos/octocat/Hello-World/git/commits/c3d0be41ecbe669545ee3e94d31ed9a4bc91ee3c"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": "",
+            "payload": ""
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response (default)
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/tags
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "tag": "v0.0.1",
+        "message": "initial version",
+        "object": "c3d0be41ecbe669545ee3e94d31ed9a4bc91ee3c",
+        "type": "commit",
+        "tagger": {
+          "name": "Monalisa Octocat",
+          "email": "octocat@github.com",
+          "date": "2011-06-17T14:53:35-07:00"
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

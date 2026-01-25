@@ -1,0 +1,77 @@
+meta {
+  name: Enable Or Disable Security Feature For An Organization
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/:security_product/:enablement
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  security_product: 
+  enablement: 
+}
+
+example {
+  name: 204 Response
+  description: Action started
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/:security_product/:enablement
+    method: POST
+    mode: none
+    params:path: {
+      org: {{owner}}
+      security_product: 
+      enablement: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response
+  description: The action could not be taken due to an in progress enablement, or a policy is preventing enablement
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/:security_product/:enablement
+    method: POST
+    mode: none
+    params:path: {
+      org: {{owner}}
+      security_product: 
+      enablement: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

@@ -1,0 +1,127 @@
+meta {
+  name: Get Github Advanced Security Active Committers For An Organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/settings/billing/advanced-security
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 
+  ~page: 
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/settings/billing/advanced-security
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "total_advanced_security_committers": 2,
+          "total_count": 2,
+          "repositories": [
+            {
+              "name": "octocat-org/Hello-World",
+              "advanced_security_committers": 2,
+              "advanced_security_committers_breakdown": [
+                {
+                  "user_login": "octocat",
+                  "last_pushed_date": "2021-11-03"
+                },
+                {
+                  "user_login": "octokitten",
+                  "last_pushed_date": "2021-10-25"
+                }
+              ]
+            },
+            {
+              "name": "octocat-org/server",
+              "advanced_security_committers": 1,
+              "advanced_security_committers_breakdown": [
+                {
+                  "user_login": "octokitten",
+                  "last_pushed_date": "2021-10-26"
+                }
+              ]
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: Response if GitHub Advanced Security is not enabled for this repository
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/settings/billing/advanced-security
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

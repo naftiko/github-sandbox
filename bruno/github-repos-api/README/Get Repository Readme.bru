@@ -1,0 +1,189 @@
+meta {
+  name: Get Repository Readme
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/readme
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~ref: reference
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/readme
+    method: GET
+    mode: none
+    params:query: {
+      ~ref: reference
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "type": "file",
+          "encoding": "base64",
+          "size": 5362,
+          "name": "README.md",
+          "path": "README.md",
+          "content": "encoded content ...",
+          "sha": "3d21ec53a331a6f037a91c368710b99387d012c1",
+          "url": "https://api.github.com/repos/octokit/octokit.rb/contents/README.md",
+          "git_url": "https://api.github.com/repos/octokit/octokit.rb/git/blobs/3d21ec53a331a6f037a91c368710b99387d012c1",
+          "html_url": "https://github.com/octokit/octokit.rb/blob/master/README.md",
+          "download_url": "https://raw.githubusercontent.com/octokit/octokit.rb/master/README.md",
+          "_links": {
+            "git": "https://api.github.com/repos/octokit/octokit.rb/git/blobs/3d21ec53a331a6f037a91c368710b99387d012c1",
+            "self": "https://api.github.com/repos/octokit/octokit.rb/contents/README.md",
+            "html": "https://github.com/octokit/octokit.rb/blob/master/README.md"
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/readme
+    method: GET
+    mode: none
+    params:query: {
+      ~ref: reference
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/readme
+    method: GET
+    mode: none
+    params:query: {
+      ~ref: reference
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

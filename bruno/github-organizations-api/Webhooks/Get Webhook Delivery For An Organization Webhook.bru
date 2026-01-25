@@ -1,0 +1,219 @@
+meta {
+  name: Get Webhook Delivery For An Organization Webhook
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/hooks/:hook_id/deliveries/:delivery_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  hook_id: 1
+  delivery_id: 1
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks/:hook_id/deliveries/:delivery_id
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      hook_id: 1
+      delivery_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 12345678,
+          "guid": "0b989ba4-242f-11e5-81e1-c7b6966d2516",
+          "delivered_at": "2019-06-03T00:57:16Z",
+          "redelivery": false,
+          "duration": 0.27,
+          "status": "OK",
+          "status_code": 200,
+          "event": "issues",
+          "action": "opened",
+          "installation_id": 123,
+          "repository_id": 456,
+          "url": "https://www.example.com",
+          "request": {
+            "headers": {
+              "X-GitHub-Delivery": "0b989ba4-242f-11e5-81e1-c7b6966d2516",
+              "X-Hub-Signature-256": "sha256=6dcb09b5b57875f334f61aebed695e2e4193db5e",
+              "Accept": "*/*",
+              "X-GitHub-Hook-ID": "42",
+              "User-Agent": "GitHub-Hookshot/b8c71d8",
+              "X-GitHub-Event": "issues",
+              "X-GitHub-Hook-Installation-Target-ID": "123",
+              "X-GitHub-Hook-Installation-Target-Type": "repository",
+              "content-type": "application/json",
+              "X-Hub-Signature": "sha1=a84d88e7554fc1fa21bcbc4efae3c782a70d2b9d"
+            },
+            "payload": {
+              "action": "opened",
+              "issue": {
+                "body": "foo"
+              },
+              "repository": {
+                "id": 123
+              }
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "text/html;charset=utf-8"
+            },
+            "payload": "ok"
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks/:hook_id/deliveries/:delivery_id
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      hook_id: 1
+      delivery_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks/:hook_id/deliveries/:delivery_id
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      hook_id: 1
+      delivery_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/scim+json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "detail": "",
+          "status": 0,
+          "scimType": "",
+          "schemas": []
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks/:hook_id/deliveries/:delivery_id
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      hook_id: 1
+      delivery_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

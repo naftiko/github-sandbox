@@ -1,0 +1,61 @@
+meta {
+  name: Set Allowed Actions For An Organization
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/actions/permissions/selected-actions
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+body:json {
+  {
+    "github_owned_allowed": false,
+    "patterns_allowed": []
+  }
+}
+
+example {
+  name: 204 Response (selected_actions)
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/permissions/selected-actions
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+    }
+  
+    body:json: {
+      {
+        "github_owned_allowed": true,
+        "verified_allowed": false,
+        "patterns_allowed": [
+          "monalisa/octocat@*",
+          "docker/*"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

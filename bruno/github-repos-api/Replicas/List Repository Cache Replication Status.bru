@@ -1,0 +1,185 @@
+meta {
+  name: List Repository Cache Replication Status
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/replicas/caches
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 25
+  ~page: 1
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/replicas/caches
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 25
+      ~page: 1
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "host": "host-1",
+            "location": "berlin",
+            "git": {
+              "sync_status": "in_sync",
+              "last_sync": "2022-01-10T19:33:52Z"
+            }
+          },
+          {
+            "host": "host-2",
+            "location": "chicago",
+            "git": {
+              "sync_status": "offline",
+              "last_sync": "2022-01-10T19:34:12Z"
+            }
+          }
+        ]
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: Forbidden
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/replicas/caches
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 25
+      ~page: 1
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/replicas/caches
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 25
+      ~page: 1
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,60 @@
+meta {
+  name: Set Self-hosted Runners In Group For An Organization
+  type: http
+  seq: 7
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/actions/runner-groups/:runner_group_id/runners
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  runner_group_id: 1
+}
+
+body:json {
+  {
+    "runners": []
+  }
+}
+
+example {
+  name: 204 Response (default)
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/runner-groups/:runner_group_id/runners
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      runner_group_id: 1
+    }
+  
+    body:json: {
+      {
+        "runners": [
+          9,
+          2
+        ]
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

@@ -1,0 +1,176 @@
+meta {
+  name: Delete Package Version For The Authenticated User
+  type: http
+  seq: 39
+}
+
+delete {
+  url: {{baseUrl}}/user/packages/:package_type/:package_name/versions/:package_version_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  package_type: 
+  package_name: 
+  package_version_id: 
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/user/packages/:package_type/:package_name/versions/:package_version_id
+    method: DELETE
+    mode: none
+    params:path: {
+      package_type: 
+      package_name: 
+      package_version_id: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/packages/:package_type/:package_name/versions/:package_version_id
+    method: DELETE
+    mode: none
+    params:path: {
+      package_type: 
+      package_name: 
+      package_version_id: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/packages/:package_type/:package_name/versions/:package_version_id
+    method: DELETE
+    mode: none
+    params:path: {
+      package_type: 
+      package_name: 
+      package_version_id: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/user/packages/:package_type/:package_name/versions/:package_version_id
+    method: DELETE
+    mode: none
+    params:path: {
+      package_type: 
+      package_name: 
+      package_version_id: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}

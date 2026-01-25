@@ -1,0 +1,371 @@
+meta {
+  name: Delete File
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/contents/:path
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  path: 
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "message": "",
+    "sha": "",
+    "branch": "",
+    "committer": {
+      "name": "",
+      "email": ""
+    },
+    "author": {
+      "name": "",
+      "email": ""
+    }
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/contents/:path
+    method: DELETE
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      path: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "message": "my commit message",
+        "committer": {
+          "name": "Monalisa Octocat",
+          "email": "octocat@github.com"
+        },
+        "sha": "329688480d39049927147c162b9d2deaf885005f"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "content": {
+            "name": "hello.txt",
+            "path": "notes/hello.txt",
+            "sha": "95b966ae1c166bd92f8ae7d1c313e738c731dfc3",
+            "size": 9,
+            "url": "https://api.github.com/repos/octocat/Hello-World/contents/notes/hello.txt",
+            "html_url": "https://github.com/octocat/Hello-World/blob/master/notes/hello.txt",
+            "git_url": "https://api.github.com/repos/octocat/Hello-World/git/blobs/95b966ae1c166bd92f8ae7d1c313e738c731dfc3",
+            "download_url": "https://raw.githubusercontent.com/octocat/HelloWorld/master/notes/hello.txt",
+            "type": "file",
+            "_links": {
+              "self": "https://api.github.com/repos/octocat/Hello-World/contents/notes/hello.txt",
+              "git": "https://api.github.com/repos/octocat/Hello-World/git/blobs/95b966ae1c166bd92f8ae7d1c313e738c731dfc3",
+              "html": "https://github.com/octocat/Hello-World/blob/master/notes/hello.txt"
+            }
+          },
+          "commit": {
+            "sha": "7638417db6d59f3c431d3e1f261cc637155684cd",
+            "node_id": "MDY6Q29tbWl0NzYzODQxN2RiNmQ1OWYzYzQzMWQzZTFmMjYxY2M2MzcxNTU2ODRjZA==",
+            "url": "https://api.github.com/repos/octocat/Hello-World/git/commits/7638417db6d59f3c431d3e1f261cc637155684cd",
+            "html_url": "https://github.com/octocat/Hello-World/git/commit/7638417db6d59f3c431d3e1f261cc637155684cd",
+            "author": {
+              "date": "2014-11-07T22:01:45Z",
+              "name": "Monalisa Octocat",
+              "email": "octocat@github.com"
+            },
+            "committer": {
+              "date": "2014-11-07T22:01:45Z",
+              "name": "Monalisa Octocat",
+              "email": "octocat@github.com"
+            },
+            "message": "my commit message",
+            "tree": {
+              "url": "https://api.github.com/repos/octocat/Hello-World/git/trees/691272480426f78a0138979dd3ce63b77f706feb",
+              "sha": "691272480426f78a0138979dd3ce63b77f706feb"
+            },
+            "parents": [
+              {
+                "url": "https://api.github.com/repos/octocat/Hello-World/git/commits/1acc419d4d6a9ce985db7be48c6349a0475975b5",
+                "html_url": "https://github.com/octocat/Hello-World/git/commit/1acc419d4d6a9ce985db7be48c6349a0475975b5",
+                "sha": "1acc419d4d6a9ce985db7be48c6349a0475975b5"
+              }
+            ],
+            "verification": {
+              "verified": false,
+              "reason": "unsigned",
+              "signature": "",
+              "payload": ""
+            }
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response (default)
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/contents/:path
+    method: DELETE
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      path: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "message": "my commit message",
+        "committer": {
+          "name": "Monalisa Octocat",
+          "email": "octocat@github.com"
+        },
+        "sha": "329688480d39049927147c162b9d2deaf885005f"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 409 Response (default)
+  description: Conflict
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/contents/:path
+    method: DELETE
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      path: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "message": "my commit message",
+        "committer": {
+          "name": "Monalisa Octocat",
+          "email": "octocat@github.com"
+        },
+        "sha": "329688480d39049927147c162b9d2deaf885005f"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 409
+      text: Conflict
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response (default)
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/contents/:path
+    method: DELETE
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      path: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "message": "my commit message",
+        "committer": {
+          "name": "Monalisa Octocat",
+          "email": "octocat@github.com"
+        },
+        "sha": "329688480d39049927147c162b9d2deaf885005f"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 503 Response (default)
+  description: Service unavailable
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/contents/:path
+    method: DELETE
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      path: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "message": "my commit message",
+        "committer": {
+          "name": "Monalisa Octocat",
+          "email": "octocat@github.com"
+        },
+        "sha": "329688480d39049927147c162b9d2deaf885005f"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 503
+      text: Service Unavailable
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "code": "",
+          "message": "",
+          "documentation_url": ""
+        }
+      '''
+    }
+  }
+}

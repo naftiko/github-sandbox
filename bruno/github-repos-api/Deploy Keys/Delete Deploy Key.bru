@@ -1,0 +1,59 @@
+meta {
+  name: Delete Deploy Key
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/keys/:key_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  key_id: 1
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/keys/:key_id
+    method: DELETE
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      key_id: 1
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

@@ -1,0 +1,285 @@
+meta {
+  name: Create Tree
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/git/trees
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "tree": [
+      {
+        "path": "",
+        "mode": "",
+        "type": "",
+        "sha": "",
+        "content": ""
+      }
+    ],
+    "base_tree": ""
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/trees
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "base_tree": "9fb037999f264ba9a7fc6274d15fa3ae2ab98312",
+        "tree": [
+          {
+            "path": "file.rb",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "44b4fc6d56897b048c772eb4087f854f46256132"
+          }
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "sha": "cd8274d15fa3ae2ab983129fb037999f264ba9a7",
+          "url": "https://api.github.com/repos/octocat/Hello-World/trees/cd8274d15fa3ae2ab983129fb037999f264ba9a7",
+          "tree": [
+            {
+              "path": "file.rb",
+              "mode": "100644",
+              "type": "blob",
+              "size": 132,
+              "sha": "7c258a9869f33c1e1e1f74fbb32f07c86cb5a75b",
+              "url": "https://api.github.com/repos/octocat/Hello-World/git/blobs/7c258a9869f33c1e1e1f74fbb32f07c86cb5a75b"
+            }
+          ],
+          "truncated": true
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response (default)
+  description: Forbidden
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/trees
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "base_tree": "9fb037999f264ba9a7fc6274d15fa3ae2ab98312",
+        "tree": [
+          {
+            "path": "file.rb",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "44b4fc6d56897b048c772eb4087f854f46256132"
+          }
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response (default)
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/trees
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "base_tree": "9fb037999f264ba9a7fc6274d15fa3ae2ab98312",
+        "tree": [
+          {
+            "path": "file.rb",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "44b4fc6d56897b048c772eb4087f854f46256132"
+          }
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response (default)
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/trees
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "base_tree": "9fb037999f264ba9a7fc6274d15fa3ae2ab98312",
+        "tree": [
+          {
+            "path": "file.rb",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "44b4fc6d56897b048c772eb4087f854f46256132"
+          }
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

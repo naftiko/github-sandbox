@@ -1,0 +1,71 @@
+meta {
+  name: Update Webhook Configuration For An Organization
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/orgs/:org/hooks/:hook_id/config
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  hook_id: 1
+}
+
+body:json {
+  {
+    "url": "",
+    "content_type": "",
+    "secret": "",
+    "insecure_ssl": ""
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks/:hook_id/config
+    method: PATCH
+    mode: json
+    params:path: {
+      org: {{owner}}
+      hook_id: 1
+    }
+  
+    body:json: {
+      {
+        "url": "http://example.com/webhook",
+        "content_type": "json",
+        "insecure_ssl": "0",
+        "secret": "********"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "content_type": "json",
+          "insecure_ssl": "0",
+          "secret": "********",
+          "url": "https://example.com/webhook"
+        }
+      '''
+    }
+  }
+}

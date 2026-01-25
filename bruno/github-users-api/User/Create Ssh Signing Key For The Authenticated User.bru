@@ -1,0 +1,298 @@
+meta {
+  name: Create Ssh Signing Key For The Authenticated User
+  type: http
+  seq: 52
+}
+
+post {
+  url: {{baseUrl}}/user/ssh_signing_keys
+  body: json
+  auth: inherit
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "title": "",
+    "key": ""
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/user/ssh_signing_keys
+    method: POST
+    mode: json
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7NzVfp5Jk8qH5VzXh3TbZ6k4V9M2qR8Y user@example.com",
+        "title": "ssh-rsa AAAAB3NzaC1yc2EAAA"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "key": "2Sg8iYjAxxmI2LvUXpJjkYrMxURPc8r+dB7TJyvv1234",
+          "id": 2,
+          "url": "https://api.github.com/user/keys/2",
+          "title": "ssh-rsa AAAAB3NzaC1yc2EAAA",
+          "created_at": "2020-06-11T21:31:57Z"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 304 Response (default)
+  description: Not modified
+  
+  request: {
+    url: {{baseUrl}}/user/ssh_signing_keys
+    method: POST
+    mode: json
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7NzVfp5Jk8qH5VzXh3TbZ6k4V9M2qR8Y user@example.com",
+        "title": "ssh-rsa AAAAB3NzaC1yc2EAAA"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 304
+      text: Not Modified
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/user/ssh_signing_keys
+    method: POST
+    mode: json
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7NzVfp5Jk8qH5VzXh3TbZ6k4V9M2qR8Y user@example.com",
+        "title": "ssh-rsa AAAAB3NzaC1yc2EAAA"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/user/ssh_signing_keys
+    method: POST
+    mode: json
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7NzVfp5Jk8qH5VzXh3TbZ6k4V9M2qR8Y user@example.com",
+        "title": "ssh-rsa AAAAB3NzaC1yc2EAAA"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/user/ssh_signing_keys
+    method: POST
+    mode: json
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7NzVfp5Jk8qH5VzXh3TbZ6k4V9M2qR8Y user@example.com",
+        "title": "ssh-rsa AAAAB3NzaC1yc2EAAA"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/user/ssh_signing_keys
+    method: POST
+    mode: json
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7NzVfp5Jk8qH5VzXh3TbZ6k4V9M2qR8Y user@example.com",
+        "title": "ssh-rsa AAAAB3NzaC1yc2EAAA"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Validation Failed",
+          "documentation_url": "https://docs.github.com/rest/reference/users#create-a-user",
+          "errors": [
+            {
+              "resource": "User",
+              "field": "login",
+              "message": "login is already taken",
+              "code": "already_exists",
+              "index": 0,
+              "value": "octocat"
+            },
+            {
+              "resource": "User",
+              "field": "email",
+              "message": "email is not a valid email address",
+              "code": "invalid",
+              "index": 1,
+              "value": "invalid-email"
+            },
+            {
+              "resource": "User",
+              "field": "scopes",
+              "code": "invalid",
+              "value": [
+                "read:user",
+                "invalid:scope",
+                "write:repo"
+              ]
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,49 @@
+meta {
+  name: Delete Discussion Comment
+  type: http
+  seq: 10
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  team_slug: naftiko
+  discussion_number: 1
+  comment_number: 1
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      discussion_number: 1
+      comment_number: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

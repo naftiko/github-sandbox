@@ -1,0 +1,277 @@
+meta {
+  name: Search Labels
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/search/labels?repository_id=1&q=API
+  body: none
+  auth: inherit
+}
+
+params:query {
+  repository_id: 1
+  q: API
+  ~sort: 
+  ~order: 
+  ~per_page: 
+  ~page: 
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: LabelSearchResultItemPaginated
+  
+  request: {
+    url: {{baseUrl}}/search/labels
+    method: GET
+    mode: none
+    params:query: {
+      repository_id: 
+      q: 
+      ~sort: 
+      ~order: 
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "total_count": 2,
+          "incomplete_results": false,
+          "items": [
+            {
+              "id": 418327088,
+              "node_id": "MDU6TGFiZWw0MTgzMjcwODg=",
+              "url": "https://api.github.com/repos/octocat/linguist/labels/enhancement",
+              "name": "enhancement",
+              "color": "84b6eb",
+              "default": true,
+              "description": "New feature or request.",
+              "score": 1
+            },
+            {
+              "id": 418327086,
+              "node_id": "MDU6TGFiZWw0MTgzMjcwODY=",
+              "url": "https://api.github.com/repos/octocat/linguist/labels/bug",
+              "name": "bug",
+              "color": "ee0701",
+              "default": true,
+              "description": "Something isn't working.",
+              "score": 1
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: NotModified
+  
+  request: {
+    url: {{baseUrl}}/search/labels
+    method: GET
+    mode: none
+    params:query: {
+      repository_id: 
+      q: 
+      ~sort: 
+      ~order: 
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 304
+      text: Not Modified
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Forbidden
+  
+  request: {
+    url: {{baseUrl}}/search/labels
+    method: GET
+    mode: none
+    params:query: {
+      repository_id: 
+      q: 
+      ~sort: 
+      ~order: 
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Forbidden",
+          "documentation_url": "https://docs.github.com/enterprise-server@3.9/rest"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: NotFound
+  
+  request: {
+    url: {{baseUrl}}/search/labels
+    method: GET
+    mode: none
+    params:query: {
+      repository_id: 
+      q: 
+      ~sort: 
+      ~order: 
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Not Found",
+          "documentation_url": "https://docs.github.com/enterprise-server@3.9/rest"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: ValidationFailed
+  
+  request: {
+    url: {{baseUrl}}/search/labels
+    method: GET
+    mode: none
+    params:query: {
+      repository_id: 
+      q: 
+      ~sort: 
+      ~order: 
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Validation Failed",
+          "documentation_url": "https://docs.github.com/enterprise-server@3.9/rest",
+          "errors": [
+            {
+              "resource": "Search",
+              "field": "q",
+              "code": "missing"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

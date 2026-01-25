@@ -1,0 +1,49 @@
+meta {
+  name: Get An Organization Public Key
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/secrets/public-key
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/secrets/public-key
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "key_id": "012345678912345678",
+          "key": "2Sg8iYjAxxmI2LvUXpJjkYrMxURPc8r+dB7TJyvv1234"
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,215 @@
+meta {
+  name: Create Github Enterprise Server Pages Site
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/pages
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "build_type": "",
+    "source": {
+      "branch": "",
+      "path": ""
+    }
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/pages
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "source": {
+          "branch": "main",
+          "path": "/docs"
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "url": "https://api.github.com/repos/github/developer.github.com/pages",
+          "status": "built",
+          "cname": "developer.github.com",
+          "custom_404": false,
+          "html_url": "https://developer.github.com",
+          "source": {
+            "branch": "master",
+            "path": "/"
+          },
+          "public": true,
+          "pending_domain_unverified_at": "2024-04-30T19:33:31Z",
+          "protected_domain_state": "verified",
+          "https_certificate": {
+            "state": "approved",
+            "description": "Certificate is approved",
+            "domains": [
+              "developer.github.com"
+            ],
+            "expires_at": "2021-05-22"
+          },
+          "https_enforced": true
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 409 Response (default)
+  description: Conflict
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/pages
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "source": {
+          "branch": "main",
+          "path": "/docs"
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 409
+      text: Conflict
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response (default)
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/pages
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "source": {
+          "branch": "main",
+          "path": "/docs"
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

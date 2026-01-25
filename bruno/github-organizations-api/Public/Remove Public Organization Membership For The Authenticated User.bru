@@ -1,0 +1,45 @@
+meta {
+  name: Remove Public Organization Membership For The Authenticated User
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/public_members/:username
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  username: naftiko
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/public_members/:username
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

@@ -1,0 +1,269 @@
+meta {
+  name: Update An Organization Membership For The Authenticated User
+  type: http
+  seq: 27
+}
+
+patch {
+  url: {{baseUrl}}/user/memberships/orgs/:org
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: 
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "state": ""
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/user/memberships/orgs/:org
+    method: PATCH
+    mode: json
+    params:path: {
+      org: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "state": "active"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "url": "https://api.github.com/orgs/octocat/memberships/defunkt",
+          "state": "active",
+          "role": "admin",
+          "organization_url": "https://api.github.com/orgs/octocat",
+          "organization": {
+            "login": "github",
+            "id": 1,
+            "node_id": "MDEyOk9yZ2FuaXphdGlvbjE=",
+            "url": "https://api.github.com/orgs/github",
+            "repos_url": "https://api.github.com/orgs/github/repos",
+            "events_url": "https://api.github.com/orgs/github/events",
+            "hooks_url": "https://api.github.com/orgs/github/hooks",
+            "issues_url": "https://api.github.com/orgs/github/issues",
+            "members_url": "https://api.github.com/orgs/github/members{/member}",
+            "public_members_url": "https://api.github.com/orgs/github/public_members{/member}",
+            "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+            "description": "A great organization"
+          },
+          "user": {
+            "login": "octocat",
+            "id": 1,
+            "node_id": "MDQ6VXNlcjE=",
+            "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/octocat",
+            "html_url": "https://github.com/octocat",
+            "followers_url": "https://api.github.com/users/octocat/followers",
+            "following_url": "https://api.github.com/users/octocat/following{/other_user}",
+            "gists_url": "https://api.github.com/users/octocat/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/octocat/subscriptions",
+            "organizations_url": "https://api.github.com/users/octocat/orgs",
+            "repos_url": "https://api.github.com/users/octocat/repos",
+            "events_url": "https://api.github.com/users/octocat/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/octocat/received_events",
+            "type": "User",
+            "site_admin": false
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/user/memberships/orgs/:org
+    method: PATCH
+    mode: json
+    params:path: {
+      org: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "state": "active"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/user/memberships/orgs/:org
+    method: PATCH
+    mode: json
+    params:path: {
+      org: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "state": "active"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/user/memberships/orgs/:org
+    method: PATCH
+    mode: json
+    params:path: {
+      org: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "state": "active"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Validation Failed",
+          "documentation_url": "https://docs.github.com/rest/reference/users#create-a-user",
+          "errors": [
+            {
+              "resource": "User",
+              "field": "login",
+              "message": "login is already taken",
+              "code": "already_exists",
+              "index": 0,
+              "value": "octocat"
+            },
+            {
+              "resource": "User",
+              "field": "email",
+              "message": "email is not a valid email address",
+              "code": "invalid",
+              "index": 1,
+              "value": "invalid-email"
+            },
+            {
+              "resource": "User",
+              "field": "scopes",
+              "code": "invalid",
+              "value": [
+                "read:user",
+                "invalid:scope",
+                "write:repo"
+              ]
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

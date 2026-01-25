@@ -1,0 +1,53 @@
+meta {
+  name: Get Allowed Actions For An Organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/permissions/selected-actions
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/permissions/selected-actions
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "github_owned_allowed": true,
+          "verified_allowed": false,
+          "patterns_allowed": [
+            "monalisa/octocat@*",
+            "docker/*"
+          ]
+        }
+      '''
+    }
+  }
+}

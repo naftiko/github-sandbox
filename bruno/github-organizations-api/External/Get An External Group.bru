@@ -1,0 +1,76 @@
+meta {
+  name: Get An External Group
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/external-group/:group_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  group_id: 1
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/external-group/:group_id
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      group_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "group_id": 123,
+          "group_name": "Octocat admins",
+          "updated_at": "2021-01-24T11:31:04-06:00",
+          "teams": [
+            {
+              "team_id": 1,
+              "team_name": "team-test"
+            },
+            {
+              "team_id": 2,
+              "team_name": "team-test2"
+            }
+          ],
+          "members": [
+            {
+              "member_id": 1,
+              "member_login": "mona-lisa_eocsaxrs",
+              "member_name": "Mona Lisa",
+              "member_email": "mona_lisa@github.com"
+            },
+            {
+              "member_id": 2,
+              "member_login": "octo-lisa_eocsaxrs",
+              "member_name": "Octo Lisa",
+              "member_email": "octo_lisa@github.com"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

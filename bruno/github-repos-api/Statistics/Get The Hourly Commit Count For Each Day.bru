@@ -1,0 +1,111 @@
+meta {
+  name: Get The Hourly Commit Count For Each Day
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/stats/punch_card
+  body: none
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/stats/punch_card
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          [
+            0,
+            0,
+            5
+          ],
+          [
+            0,
+            1,
+            43
+          ],
+          [
+            0,
+            2,
+            21
+          ]
+        ]
+      '''
+    }
+  }
+}
+
+example {
+  name: 204 Response
+  description: header with no content is returned.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/stats/punch_card
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

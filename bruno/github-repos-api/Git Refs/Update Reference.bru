@@ -1,0 +1,145 @@
+meta {
+  name: Update Reference
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/repos/:owner/:repo/git/refs/:ref
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  ref: reference
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "sha": "",
+    "force": false
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/refs/:ref
+    method: PATCH
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      ref: reference
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "sha": "aa218f56b14c9653891f9e74264a383fa43fefbd",
+        "force": true
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "ref": "refs/heads/featureA",
+          "node_id": "MDM6UmVmcmVmcy9oZWFkcy9mZWF0dXJlQQ==",
+          "url": "https://api.github.com/repos/octocat/Hello-World/git/refs/heads/featureA",
+          "object": {
+            "type": "commit",
+            "sha": "aa218f56b14c9653891f9e74264a383fa43fefbd",
+            "url": "https://api.github.com/repos/octocat/Hello-World/git/commits/aa218f56b14c9653891f9e74264a383fa43fefbd"
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response (default)
+  description: Validation failed, or the endpoint has been spammed.
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/refs/:ref
+    method: PATCH
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      ref: reference
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "sha": "aa218f56b14c9653891f9e74264a383fa43fefbd",
+        "force": true
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "errors": [
+            {
+              "resource": "",
+              "field": "",
+              "message": "",
+              "code": "",
+              "index": 0,
+              "value": ""
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

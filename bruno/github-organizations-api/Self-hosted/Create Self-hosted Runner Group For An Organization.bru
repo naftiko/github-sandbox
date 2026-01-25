@@ -1,0 +1,87 @@
+meta {
+  name: Create Self-hosted Runner Group For An Organization
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/actions/runner-groups
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+body:json {
+  {
+    "name": "",
+    "visibility": "",
+    "selected_repository_ids": [],
+    "runners": [],
+    "allows_public_repositories": false,
+    "restricted_to_workflows": false,
+    "selected_workflows": []
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/runner-groups
+    method: POST
+    mode: json
+    params:path: {
+      org: {{owner}}
+    }
+  
+    body:json: {
+      {
+        "name": "Expensive hardware runners",
+        "visibility": "selected",
+        "selected_repository_ids": [
+          32,
+          91
+        ],
+        "runners": [
+          9,
+          2
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 2,
+          "name": "octo-runner-group",
+          "visibility": "selected",
+          "default": false,
+          "selected_repositories_url": "https://api.github.com/orgs/octo-org/actions/runner-groups/2/repositories",
+          "runners_url": "https://api.github.com/orgs/octo-org/actions/runner_groups/2/runners",
+          "inherited": false,
+          "allows_public_repositories": true,
+          "restricted_to_workflows": true,
+          "selected_workflows": [
+            "octo-org/octo-repo/.github/workflows/deploy.yaml@refs/heads/main"
+          ],
+          "workflow_restrictions_read_only": false
+        }
+      '''
+    }
+  }
+}

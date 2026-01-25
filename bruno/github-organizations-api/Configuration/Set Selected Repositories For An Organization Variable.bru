@@ -1,0 +1,96 @@
+meta {
+  name: Set Selected Repositories For An Organization Variable
+  type: http
+  seq: 10
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/actions/variables/:name/repositories
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  name: 
+}
+
+body:json {
+  {
+    "selected_repository_ids": []
+  }
+}
+
+example {
+  name: 204 Response (default)
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/variables/:name/repositories
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      name: 
+    }
+  
+    body:json: {
+      {
+        "selected_repository_ids": [
+          64780797
+        ]
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 409 Response (default)
+  description: Response when the visibility of the variable is not set to `selected`
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/variables/:name/repositories
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      name: 
+    }
+  
+    body:json: {
+      {
+        "selected_repository_ids": [
+          64780797
+        ]
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 409
+      text: Conflict
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

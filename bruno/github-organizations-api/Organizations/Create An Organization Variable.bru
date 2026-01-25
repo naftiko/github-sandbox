@@ -1,0 +1,67 @@
+meta {
+  name: Create An Organization Variable
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/actions/variables
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+body:json {
+  {
+    "name": "",
+    "value": "",
+    "visibility": "",
+    "selected_repository_ids": []
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/variables
+    method: POST
+    mode: json
+    params:path: {
+      org: {{owner}}
+    }
+  
+    body:json: {
+      {
+        "name": "USERNAME",
+        "value": "octocat",
+        "visibility": "selected",
+        "selected_repository_ids": [
+          1296269,
+          1296280
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}

@@ -1,0 +1,50 @@
+meta {
+  name: Get Github Actions Permissions For An Organization
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/permissions
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/permissions
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "enabled_repositories": "all",
+          "allowed_actions": "selected",
+          "selected_actions_url": "https://api.github.com/organizations/42/actions/permissions/selected-actions"
+        }
+      '''
+    }
+  }
+}

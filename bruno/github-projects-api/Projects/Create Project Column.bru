@@ -1,0 +1,222 @@
+meta {
+  name: Create Project Column
+  type: http
+  seq: 18
+}
+
+post {
+  url: {{baseUrl}}/projects/:project_id/columns
+  body: json
+  auth: inherit
+}
+
+params:path {
+  project_id: 1
+}
+
+body:json {
+  {
+    "name": ""
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/columns
+    method: POST
+    mode: json
+    params:path: {
+      project_id: 1
+    }
+  
+    body:json: {
+      {
+        "name": "Remaining tasks"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "url": "https://api.github.com/projects/columns/367",
+          "project_url": "https://api.github.com/projects/120",
+          "cards_url": "https://api.github.com/projects/columns/367/cards",
+          "id": 367,
+          "node_id": "MDEzOlByb2plY3RDb2x1bW4zNjc=",
+          "name": "To Do",
+          "created_at": "2016-09-05T14:18:44Z",
+          "updated_at": "2016-09-05T14:22:28Z"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 304 Response (default)
+  description: Not modified
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/columns
+    method: POST
+    mode: json
+    params:path: {
+      project_id: 1
+    }
+  
+    body:json: {
+      {
+        "name": "Remaining tasks"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 304
+      text: Not Modified
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/columns
+    method: POST
+    mode: json
+    params:path: {
+      project_id: 1
+    }
+  
+    body:json: {
+      {
+        "name": "Remaining tasks"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Error message",
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/columns
+    method: POST
+    mode: json
+    params:path: {
+      project_id: 1
+    }
+  
+    body:json: {
+      {
+        "name": "Remaining tasks"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Error message",
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/columns
+    method: POST
+    mode: json
+    params:path: {
+      project_id: 1
+    }
+  
+    body:json: {
+      {
+        "name": "Remaining tasks"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Validation Failed",
+          "errors": [],
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}

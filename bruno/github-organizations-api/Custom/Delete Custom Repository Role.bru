@@ -1,0 +1,45 @@
+meta {
+  name: Delete Custom Repository Role
+  type: http
+  seq: 8
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/custom-repository-roles/:role_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  role_id: 1
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/custom-repository-roles/:role_id
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      role_id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

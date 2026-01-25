@@ -1,0 +1,126 @@
+meta {
+  name: Get Github Enterprise Server Pages Site
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/pages
+  body: none
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/pages
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "url": "https://api.github.com/repos/github/developer.github.com/pages",
+          "status": "built",
+          "cname": "developer.github.com",
+          "custom_404": false,
+          "html_url": "https://developer.github.com",
+          "source": {
+            "branch": "master",
+            "path": "/"
+          },
+          "public": true,
+          "pending_domain_unverified_at": "2024-04-30T19:33:31Z",
+          "protected_domain_state": "verified",
+          "https_certificate": {
+            "state": "approved",
+            "description": "Certificate is approved",
+            "domains": [
+              "developer.github.com"
+            ],
+            "expires_at": "2021-05-22"
+          },
+          "https_enforced": true
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/pages
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

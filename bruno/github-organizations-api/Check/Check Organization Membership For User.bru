@@ -1,0 +1,103 @@
+meta {
+  name: Check Organization Membership For User
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/members/:username
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  username: naftiko
+}
+
+example {
+  name: 204 Response
+  description: Response if requester is an organization member and user is a member
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/members/:username
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 302 Response
+  description: Response if requester is not an organization member
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/members/:username
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 302
+      text: Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Not Found if requester is an organization member and user is not a member
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/members/:username
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      username: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

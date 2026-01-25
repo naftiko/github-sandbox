@@ -1,0 +1,68 @@
+meta {
+  name: List Pre-receive Hooks For An Organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/pre-receive-hooks
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 
+  ~page: 
+  ~direction: 
+  ~sort: 
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/pre-receive-hooks
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+      ~direction: 
+      ~sort: 
+    }
+  
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "id": 42,
+            "name": "Check Commits",
+            "enforcement": "disabled",
+            "configuration_url": "https://github.example.com/api/v3/admin/pre-receive-hooks/42",
+            "allow_downstream_configuration": true
+          }
+        ]
+      '''
+    }
+  }
+}

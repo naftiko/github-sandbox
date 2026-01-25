@@ -1,0 +1,49 @@
+meta {
+  name: Get Default Workflow Permissions For An Organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/permissions/workflow
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: Give read-only permission, and allow approving PRs.
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/permissions/workflow
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "default_workflow_permissions": "read",
+          "can_approve_pull_request_reviews": true
+        }
+      '''
+    }
+  }
+}

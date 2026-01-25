@@ -1,0 +1,53 @@
+meta {
+  name: Get Webhook Configuration For An Organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/hooks/:hook_id/config
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  hook_id: 1
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/hooks/:hook_id/config
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      hook_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "content_type": "json",
+          "insecure_ssl": "0",
+          "secret": "********",
+          "url": "https://example.com/webhook"
+        }
+      '''
+    }
+  }
+}

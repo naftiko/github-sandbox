@@ -1,0 +1,47 @@
+meta {
+  name: Add Self-hosted Runner To Group For An Organization
+  type: http
+  seq: 7
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/actions/runner-groups/:runner_group_id/runners/:runner_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  runner_group_id: 1
+  runner_id: 1
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/runner-groups/:runner_group_id/runners/:runner_id
+    method: PUT
+    mode: none
+    params:path: {
+      org: {{owner}}
+      runner_group_id: 1
+      runner_id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

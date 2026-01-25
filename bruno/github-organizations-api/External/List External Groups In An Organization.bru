@@ -1,0 +1,71 @@
+meta {
+  name: List External Groups In An Organization
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/external-groups
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 
+  ~page: 
+  ~display_name: naftiko
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/external-groups
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+      ~display_name: naftiko
+    }
+  
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "groups": [
+            {
+              "group_id": 123,
+              "group_name": "Octocat admins",
+              "updated_at": "2021-01-24T11:31:04-06:00"
+            },
+            {
+              "group_id": 456,
+              "group_name": "Octocat docs members",
+              "updated_at": "2021-03-24T11:31:04-06:00"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

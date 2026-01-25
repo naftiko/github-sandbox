@@ -1,0 +1,70 @@
+meta {
+  name: List Repositories With Github Actions Cache Usage For An Organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/cache/usage-by-repository
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 
+  ~page: 
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/cache/usage-by-repository
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "total_count": 2,
+          "repository_cache_usages": [
+            {
+              "full_name": "octo-org/Hello-World",
+              "active_caches_size_in_bytes": 2322142,
+              "active_caches_count": 3
+            },
+            {
+              "full_name": "octo-org/server",
+              "active_caches_size_in_bytes": 1022142,
+              "active_caches_count": 2
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

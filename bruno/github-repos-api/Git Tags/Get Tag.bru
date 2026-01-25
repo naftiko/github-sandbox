@@ -1,0 +1,129 @@
+meta {
+  name: Get Tag
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/git/tags/:tag_sha
+  body: none
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  tag_sha: a63kkkdfff
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/tags/:tag_sha
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      tag_sha: a63kkkdfff
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "node_id": "MDM6VGFnOTQwYmQzMzYyNDhlZmFlMGY5ZWU1YmM3YjJkNWM5ODU4ODdiMTZhYw==",
+          "tag": "v0.0.1",
+          "sha": "940bd336248efae0f9ee5bc7b2d5c985887b16ac",
+          "url": "https://api.github.com/repos/octocat/Hello-World/git/tags/940bd336248efae0f9ee5bc7b2d5c985887b16ac",
+          "message": "initial version",
+          "tagger": {
+            "name": "Monalisa Octocat",
+            "email": "octocat@github.com",
+            "date": "2014-11-07T22:01:45Z"
+          },
+          "object": {
+            "type": "commit",
+            "sha": "c3d0be41ecbe669545ee3e94d31ed9a4bc91ee3c",
+            "url": "https://api.github.com/repos/octocat/Hello-World/git/commits/c3d0be41ecbe669545ee3e94d31ed9a4bc91ee3c"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": "",
+            "payload": ""
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/git/tags/:tag_sha
+    method: GET
+    mode: none
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      tag_sha: a63kkkdfff
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

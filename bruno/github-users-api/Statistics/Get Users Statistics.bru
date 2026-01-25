@@ -1,0 +1,54 @@
+meta {
+  name: Get Users Statistics
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/enterprise/stats/users
+  body: none
+  auth: inherit
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/enterprise/stats/users
+    method: GET
+    mode: none
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "total_users": 100,
+          "admin_users": 3,
+          "suspended_users": 1
+        }
+      '''
+    }
+  }
+}

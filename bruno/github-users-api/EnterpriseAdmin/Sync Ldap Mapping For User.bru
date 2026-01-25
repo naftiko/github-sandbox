@@ -1,0 +1,60 @@
+meta {
+  name: Sync Ldap Mapping For User
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/admin/ldap/users/:username/sync
+  body: none
+  auth: inherit
+}
+
+params:path {
+  username: naftiko
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/admin/ldap/users/:username/sync
+    method: POST
+    mode: none
+    params:path: {
+      username: naftiko
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "queued"
+        }
+      '''
+    }
+  }
+}

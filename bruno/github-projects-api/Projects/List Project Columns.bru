@@ -1,0 +1,178 @@
+meta {
+  name: List Project Columns
+  type: http
+  seq: 17
+}
+
+get {
+  url: {{baseUrl}}/projects/:project_id/columns?per_page=25&page=0
+  body: none
+  auth: inherit
+}
+
+params:query {
+  per_page: 25
+  page: 0
+}
+
+params:path {
+  project_id: 1
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/columns
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      project_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "url": "https://api.github.com/projects/columns/367",
+            "project_url": "https://api.github.com/projects/120",
+            "cards_url": "https://api.github.com/projects/columns/367/cards",
+            "id": 367,
+            "node_id": "MDEzOlByb2plY3RDb2x1bW4zNjc=",
+            "name": "To Do",
+            "created_at": "2016-09-05T14:18:44Z",
+            "updated_at": "2016-09-05T14:22:28Z"
+          }
+        ]
+      '''
+    }
+  }
+}
+
+example {
+  name: 304 Response
+  description: Not modified
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/columns
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      project_id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 304
+      text: Not Modified
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/columns
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      project_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Error message",
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/projects/:project_id/columns
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      project_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Error message",
+          "documentation_url": "https://docs.github.com/rest"
+        }
+      '''
+    }
+  }
+}

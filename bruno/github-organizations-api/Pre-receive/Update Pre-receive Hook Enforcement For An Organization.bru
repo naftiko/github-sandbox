@@ -1,0 +1,68 @@
+meta {
+  name: Update Pre-receive Hook Enforcement For An Organization
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{baseUrl}}/orgs/:org/pre-receive-hooks/:pre_receive_hook_id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  pre_receive_hook_id: 1
+}
+
+body:json {
+  {
+    "enforcement": "",
+    "allow_downstream_configuration": false
+  }
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/pre-receive-hooks/:pre_receive_hook_id
+    method: PATCH
+    mode: json
+    params:path: {
+      org: {{owner}}
+      pre_receive_hook_id: 1
+    }
+  
+    body:json: {
+      {
+        "enforcement": "enabled",
+        "allow_downstream_configuration": false
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 42,
+          "name": "Check Commits",
+          "enforcement": "enabled",
+          "configuration_url": "https://github.example.com/api/v3/orgs/octocat/pre-receive-hooks/42",
+          "allow_downstream_configuration": false
+        }
+      '''
+    }
+  }
+}

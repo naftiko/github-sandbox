@@ -1,0 +1,125 @@
+meta {
+  name: List Teams
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/teams
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 
+  ~page: 
+}
+
+params:path {
+  org: {{owner}}
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "id": 1,
+            "node_id": "MDQ6VGVhbTE=",
+            "url": "https://api.github.com/teams/1",
+            "html_url": "https://github.com/orgs/github/teams/justice-league",
+            "name": "Justice League",
+            "slug": "justice-league",
+            "description": "A great team.",
+            "privacy": "closed",
+            "permission": "admin",
+            "members_url": "https://api.github.com/teams/1/members{/member}",
+            "repositories_url": "https://api.github.com/teams/1/repos",
+            "parent": {
+              "id": 1,
+              "node_id": "MDQ6VGVhbTE=",
+              "url": "https://api.github.com/teams/1",
+              "html_url": "https://github.com/orgs/github/teams/justice-league",
+              "name": "Justice League",
+              "slug": "justice-league",
+              "description": "A great team.",
+              "privacy": "closed",
+              "permission": "admin",
+              "members_url": "https://api.github.com/teams/1/members{/member}",
+              "repositories_url": "https://api.github.com/teams/1/repos"
+            }
+          }
+        ]
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: Forbidden
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      org: {{owner}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}

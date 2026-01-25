@@ -1,0 +1,61 @@
+meta {
+  name: Add Or Update Team Repository Permissions
+  type: http
+  seq: 15
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/repos/:owner/:repo
+  body: json
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  team_slug: naftiko
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+body:json {
+  {
+    "permission": ""
+  }
+}
+
+example {
+  name: 204 Response (Adding a team to an organization repository with the write role)
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/repos/:owner/:repo
+    method: PUT
+    mode: json
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+      owner: {{owner}}
+      repo: {{repo}}
+    }
+  
+    body:json: {
+      {
+        "permission": "push"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

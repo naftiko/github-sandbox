@@ -1,0 +1,85 @@
+meta {
+  name: List Check Run Annotations
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/check-runs/:check_run_id/annotations
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 25
+  ~page: 1
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  check_run_id: 1
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/check-runs/:check_run_id/annotations
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 25
+      ~page: 1
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      check_run_id: 1
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "path": "README.md",
+            "start_line": 2,
+            "end_line": 2,
+            "start_column": 5,
+            "end_column": 10,
+            "annotation_level": "warning",
+            "title": "Spell Checker",
+            "message": "Check your spelling for 'banaas'.",
+            "raw_details": "Do you mean 'bananas' or 'banana'?",
+            "blob_href": "https://api.github.com/repos/github/rest-api-description/git/blobs/abc"
+          }
+        ]
+      '''
+    }
+  }
+}

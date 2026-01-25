@@ -1,0 +1,54 @@
+meta {
+  name: Remove Pre-receive Hook Enforcement For An Organization
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/pre-receive-hooks/:pre_receive_hook_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  pre_receive_hook_id: 1
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/pre-receive-hooks/:pre_receive_hook_id
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      pre_receive_hook_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 42,
+          "name": "Check Commits",
+          "enforcement": "disabled",
+          "configuration_url": "https://github.example.com/api/v3/admin/pre-receive-hooks/42",
+          "allow_downstream_configuration": true
+        }
+      '''
+    }
+  }
+}

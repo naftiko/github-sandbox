@@ -1,0 +1,77 @@
+meta {
+  name: Remove Selected Repository From An Organization Variable
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/actions/variables/:name/repositories/:repository_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  name: 
+  repository_id: 1
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/variables/:name/repositories/:repository_id
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      name: 
+      repository_id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 409 Response
+  description: Response when the visibility of the variable is not set to `selected`
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/variables/:name/repositories/:repository_id
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      name: 
+      repository_id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 409
+      text: Conflict
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

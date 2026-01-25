@@ -1,0 +1,243 @@
+meta {
+  name: Search Users
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/search/users?q=API
+  body: none
+  auth: inherit
+}
+
+params:query {
+  q: API
+  ~sort: 
+  ~order: 
+  ~per_page: 
+  ~page: 
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/search/users
+    method: GET
+    mode: none
+    params:query: {
+      q: API
+      ~sort: 
+      ~order: 
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "total_count": 12,
+          "incomplete_results": false,
+          "items": [
+            {
+              "login": "mojombo",
+              "id": 1,
+              "node_id": "MDQ6VXNlcjE=",
+              "avatar_url": "https://secure.gravatar.com/avatar/25c7c18223fb42a4c6ae1c8db6f50f9b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/mojombo",
+              "html_url": "https://github.com/mojombo",
+              "followers_url": "https://api.github.com/users/mojombo/followers",
+              "subscriptions_url": "https://api.github.com/users/mojombo/subscriptions",
+              "organizations_url": "https://api.github.com/users/mojombo/orgs",
+              "repos_url": "https://api.github.com/users/mojombo/repos",
+              "received_events_url": "https://api.github.com/users/mojombo/received_events",
+              "type": "User",
+              "score": 1,
+              "following_url": "https://api.github.com/users/mojombo/following{/other_user}",
+              "gists_url": "https://api.github.com/users/mojombo/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/mojombo/starred{/owner}{/repo}",
+              "events_url": "https://api.github.com/users/mojombo/events{/privacy}",
+              "site_admin": true
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 304 Response
+  description: Not modified
+  
+  request: {
+    url: {{baseUrl}}/search/users
+    method: GET
+    mode: none
+    params:query: {
+      q: API
+      ~sort: 
+      ~order: 
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 304
+      text: Not Modified
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/search/users
+    method: GET
+    mode: none
+    params:query: {
+      q: API
+      ~sort: 
+      ~order: 
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Validation Failed",
+          "documentation_url": "https://docs.github.com/rest/reference/users#create-a-user",
+          "errors": [
+            {
+              "resource": "User",
+              "field": "login",
+              "message": "login is already taken",
+              "code": "already_exists",
+              "index": 0,
+              "value": "octocat"
+            },
+            {
+              "resource": "User",
+              "field": "email",
+              "message": "email is not a valid email address",
+              "code": "invalid",
+              "index": 1,
+              "value": "invalid-email"
+            },
+            {
+              "resource": "User",
+              "field": "scopes",
+              "code": "invalid",
+              "value": [
+                "read:user",
+                "invalid:scope",
+                "write:repo"
+              ]
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/search/users
+    method: GET
+    mode: none
+    params:query: {
+      q: API
+      ~sort: 
+      ~order: 
+      ~per_page: 
+      ~page: 
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 503
+      text: Service Unavailable
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}

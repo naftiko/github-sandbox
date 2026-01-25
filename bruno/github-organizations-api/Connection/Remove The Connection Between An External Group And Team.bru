@@ -1,0 +1,45 @@
+meta {
+  name: Remove The Connection Between An External Group And Team
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/external-groups
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  team_slug: naftiko
+}
+
+example {
+  name: 204 Response
+  description: Response
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/teams/:team_slug/external-groups
+    method: DELETE
+    mode: none
+    params:path: {
+      org: {{owner}}
+      team_slug: naftiko
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

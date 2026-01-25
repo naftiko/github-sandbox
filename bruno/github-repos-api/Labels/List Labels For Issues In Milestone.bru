@@ -1,0 +1,91 @@
+meta {
+  name: List Labels For Issues In Milestone
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/milestones/:milestone_number/labels
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 25
+  ~page: 1
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  milestone_number: 1
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+example {
+  name: Default
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/milestones/:milestone_number/labels
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 25
+      ~page: 1
+    }
+  
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      milestone_number: 1
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "id": 208045946,
+            "node_id": "MDU6TGFiZWwyMDgwNDU5NDY=",
+            "url": "https://api.github.com/repos/octocat/Hello-World/labels/bug",
+            "name": "bug",
+            "description": "Something isn't working",
+            "color": "f29513",
+            "default": true
+          },
+          {
+            "id": 208045947,
+            "node_id": "MDU6TGFiZWwyMDgwNDU5NDc=",
+            "url": "https://api.github.com/repos/octocat/Hello-World/labels/enhancement",
+            "name": "enhancement",
+            "description": "New feature or request",
+            "color": "a2eeef",
+            "default": false
+          }
+        ]
+      '''
+    }
+  }
+}

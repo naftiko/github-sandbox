@@ -1,0 +1,158 @@
+meta {
+  name: Sync Fork Branch With The Upstream Repository
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/merge-upstream
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "branch": ""
+  }
+}
+
+example {
+  name: Default (default)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/merge-upstream
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "branch": "main"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "Successfully fetched and fast-forwarded from upstream defunkt:main",
+          "merge_type": "fast-forward",
+          "base_branch": "defunkt:main"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 409 Response (default)
+  description: The branch could not be synced because of a merge conflict
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/merge-upstream
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "branch": "main"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 409
+      text: Conflict
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 422 Response (default)
+  description: The branch could not be synced for some other reason
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/merge-upstream
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "branch": "main"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

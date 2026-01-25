@@ -1,0 +1,295 @@
+meta {
+  name: Create Deployment Branch Policy
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies
+  body: json
+  auth: inherit
+}
+
+params:path {
+  owner: {{owner}}
+  repo: {{repo}}
+  environment_name: {{environment}}
+}
+
+headers {
+  ~Authorization: 
+  ~X-GitHub-Api-Version: 
+  ~Accept: 
+}
+
+body:json {
+  {
+    "name": ""
+  }
+}
+
+example {
+  name: Default (Example of a wildcard name pattern)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      environment_name: environment
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "name": "release/*"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 364662,
+          "node_id": "MDE2OkdhdGVCcmFuY2hQb2xpY3kzNjQ2NjI=",
+          "name": "release/*"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: Default (Example of a single branch name pattern)
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      environment_name: environment
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "name": "main"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 364662,
+          "node_id": "MDE2OkdhdGVCcmFuY2hQb2xpY3kzNjQ2NjI=",
+          "name": "release/*"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 303 Response (Example of a wildcard name pattern)
+  description: Response if the same branch name pattern already exists
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      environment_name: environment
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "name": "release/*"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 303
+      text: See Other
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 303 Response (Example of a single branch name pattern)
+  description: Response if the same branch name pattern already exists
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      environment_name: environment
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "name": "main"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 303
+      text: See Other
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response (Example of a wildcard name pattern)
+  description: Not Found or `deployment_branch_policy.custom_branch_policies` property for the environment is set to false
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      environment_name: environment
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "name": "release/*"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response (Example of a single branch name pattern)
+  description: Not Found or `deployment_branch_policy.custom_branch_policies` property for the environment is set to false
+  
+  request: {
+    url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies
+    method: POST
+    mode: json
+    params:path: {
+      owner: {{owner}}
+      repo: {{owner}}
+      environment_name: environment
+    }
+  
+    headers: {
+      ~Authorization: 
+      ~X-GitHub-Api-Version: 
+      ~Accept: 
+    }
+  
+    body:json: {
+      {
+        "name": "main"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

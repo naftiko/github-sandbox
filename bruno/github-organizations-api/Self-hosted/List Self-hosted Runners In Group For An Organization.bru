@@ -1,0 +1,115 @@
+meta {
+  name: List Self-hosted Runners In Group For An Organization
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/runner-groups/:runner_group_id/runners
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 
+  ~page: 
+}
+
+params:path {
+  org: {{owner}}
+  runner_group_id: 1
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/runner-groups/:runner_group_id/runners
+    method: GET
+    mode: none
+    params:query: {
+      ~per_page: 
+      ~page: 
+    }
+  
+    params:path: {
+      org: {{owner}}
+      runner_group_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "total_count": 2,
+          "runners": [
+            {
+              "id": 23,
+              "name": "linux_runner",
+              "os": "linux",
+              "status": "online",
+              "busy": true,
+              "labels": [
+                {
+                  "id": 5,
+                  "name": "self-hosted",
+                  "type": "read-only"
+                },
+                {
+                  "id": 7,
+                  "name": "X64",
+                  "type": "read-only"
+                },
+                {
+                  "id": 11,
+                  "name": "Linux",
+                  "type": "read-only"
+                }
+              ]
+            },
+            {
+              "id": 24,
+              "name": "mac_runner",
+              "os": "macos",
+              "status": "offline",
+              "busy": false,
+              "labels": [
+                {
+                  "id": 5,
+                  "name": "self-hosted",
+                  "type": "read-only"
+                },
+                {
+                  "id": 7,
+                  "name": "X64",
+                  "type": "read-only"
+                },
+                {
+                  "id": 20,
+                  "name": "macOS",
+                  "type": "read-only"
+                },
+                {
+                  "id": 21,
+                  "name": "no-gpu",
+                  "type": "custom"
+                }
+              ]
+            }
+          ]
+        }
+      '''
+    }
+  }
+}

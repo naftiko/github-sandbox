@@ -1,0 +1,110 @@
+meta {
+  name: List Labels For Self-hosted Runner For An Organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/runners/:runner_id/labels
+  body: none
+  auth: inherit
+}
+
+params:path {
+  org: {{owner}}
+  runner_id: 1
+}
+
+example {
+  name: default
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/runners/:runner_id/labels
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      runner_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "total_count": 4,
+          "labels": [
+            {
+              "id": 5,
+              "name": "self-hosted",
+              "type": "read-only"
+            },
+            {
+              "id": 7,
+              "name": "X64",
+              "type": "read-only"
+            },
+            {
+              "id": 20,
+              "name": "macOS",
+              "type": "read-only"
+            },
+            {
+              "id": 21,
+              "name": "no-gpu",
+              "type": "custom"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Resource not found
+  
+  request: {
+    url: {{baseUrl}}/orgs/:org/actions/runners/:runner_id/labels
+    method: GET
+    mode: none
+    params:path: {
+      org: {{owner}}
+      runner_id: 1
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "",
+          "documentation_url": "",
+          "url": "",
+          "status": ""
+        }
+      '''
+    }
+  }
+}
