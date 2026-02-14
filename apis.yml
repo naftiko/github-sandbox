@@ -1,0 +1,251 @@
+specificationVersion: '0.19'
+
+aid: github-sandbox
+type: Sandbox
+visibility: Public
+
+name: GitHub API Sandbox
+description: >-
+  This is a GitHub sandbox that uses OpenAPI, Microcks, Bruno, and Backstage
+  to provide a 3rd-party REST API and MCP sandbox for GitHub.
+
+tags:
+  - Source Control
+  - Repositories
+  - Collaboration
+
+image: https://naftiko.s3.us-east-1.amazonaws.com/naftiko-logo-blue-icon.png
+
+created: '2026-02-13'
+modified: '2026-02-13'
+
+url: https://github.com/naftiko/github-sandbox/blob/main/README.md
+
+apis:
+
+    - aid: github:organizations-api
+      name: GitHub Organizations API
+      description: >-
+        Manage GitHub organizations including membership, settings, and
+        permissions. List, create, and update organizations and their
+        associated resources.
+      tags:
+        - Organizations
+        - Membership
+      properties:
+
+        - type: OpenApi
+          url: openapi/github-organizations-openapi.yml
+        - type: MockRestServer
+          url: http://localhost:8080/rest/github-organizations-api/1.0.0
+        - type: MockMCPServer
+          url: http://localhost:8080/mcp/github-organizations-api/1.0.0/sse
+        - type: BackstageApi
+          url: backstage/github-organizations-api-api-sandbox-backstage.yml
+
+    - aid: github:projects-api
+      name: GitHub Projects API
+      description: >-
+        Manage GitHub Projects for planning and tracking work. Create, update,
+        and organize project boards, columns, and cards across repositories
+        and organizations.
+      tags:
+        - Projects
+        - Planning
+      properties:
+
+        - type: OpenApi
+          url: openapi/github-projects-openapi.yml
+        - type: MockRestServer
+          url: http://localhost:8080/rest/github-projects-api/1.0.0
+        - type: MockMCPServer
+          url: http://localhost:8080/mcp/github-projects-api/1.0.0/sse
+        - type: BackstageApi
+          url: backstage/github-projects-api-api-sandbox-backstage.yml
+
+    - aid: github:repos-api
+      name: GitHub Repos API
+      description: >-
+        Manage GitHub repositories including creation, configuration, contents,
+        branches, collaborators, and webhooks. The core API for interacting
+        with repository data and settings.
+      tags:
+        - Repositories
+        - Source Control
+        - Branches
+      properties:
+
+        - type: OpenApi
+          url: openapi/github-repos-api-openapi.yml
+        - type: MockRestServer
+          url: http://localhost:8080/rest/github-repos-api/1.0.0
+        - type: MockMCPServer
+          url: http://localhost:8080/mcp/github-repos-api/1.0.0/sse
+        - type: BackstageApi
+          url: backstage/github-repos-api-api-sandbox-backstage.yml
+
+    - aid: github:search-api
+      name: GitHub Search API
+      description: >-
+        Search across GitHub resources including repositories, code, commits,
+        issues, pull requests, users, and topics. Supports complex query
+        syntax with qualifiers and sorting options.
+      tags:
+        - Search
+        - Discovery
+      properties:
+
+        - type: OpenApi
+          url: openapi/github-search-api-openapi.yml
+        - type: MockRestServer
+          url: http://localhost:8080/rest/github-search-api/1.0.0
+        - type: MockMCPServer
+          url: http://localhost:8080/mcp/github-search-api/1.0.0/sse
+        - type: BackstageApi
+          url: backstage/github-search-api-api-sandbox-backstage.yml
+
+    - aid: github:users-api
+      name: GitHub Users API
+      description: >-
+        Manage GitHub user accounts and profiles. Retrieve user information,
+        list followers and following, and manage SSH keys, GPG keys, and
+        email addresses.
+      tags:
+        - Users
+        - Profiles
+      properties:
+
+        - type: OpenApi
+          url: openapi/github-users-api-openapi.yml
+        - type: MockRestServer
+          url: http://localhost:8080/rest/github-users-api/1.0.0
+        - type: MockMCPServer
+          url: http://localhost:8080/mcp/github-users-api/1.0.0/sse
+        - type: BackstageApi
+          url: backstage/github-users-api-api-sandbox-backstage.yml
+
+common:
+
+  - type: Summary
+    data:
+
+      numberOfPaths: 26
+      numberOfOperations: 34
+      numberOfReadOperations: 14
+      numberOfWriteOperations: 20
+      numberOfSchemas: 127
+      numberOfResponses: 9
+      numberOfParameters: 12
+      numberOfExamples: 69
+      numberOfRequestBodies: 0
+      numberOfHeaders: 1
+      tags:
+        - Organizations
+        - Projects
+        - Repositories
+        - Search
+        - Users
+      operations:
+        - Create Organization
+        - Create Organization Invitation
+        - Create Organization Repository
+        - Create Project
+        - Create Project Card
+        - Create Project Column
+        - Create User Repository
+        - Delete Project
+        - Delete Project Card
+        - Delete Project Column
+        - Get Organization
+        - Get Project
+        - Get Project Card
+        - Get Project Column
+        - Get Repository
+        - Get User
+        - List Organization Members
+        - List Organization Repositories
+        - List Project Cards
+        - List Project Collaborators
+        - List Project Columns
+        - List Projects
+        - List Repositories
+        - List User Followers
+        - List User Following
+        - List User Repositories
+        - List Users
+        - Move Project Card
+        - Move Project Column
+        - Search Code
+        - Search Commits
+        - Search Issues And Pull Requests
+        - Search Repositories
+        - Search Users
+        - Update Organization
+        - Update Project
+        - Update Project Card
+        - Update Project Column
+        - Update Repository
+
+  - type: GitHubHttpUrl
+    url: https://github.com/naftiko/github-sandbox
+
+  - type: GitHubSshUrl
+    url: git@github.com:naftiko/github-sandbox.git
+
+  - type: GitHubIssues
+    url: https://github.com/naftiko/github-sandbox/issues
+
+  - type: GitHubDiscussions
+    url: https://github.com/orgs/naftiko/discussions
+
+  - type: Standards
+    data:
+
+      - name: APIs.json
+        description: This uses the APIs.json
+        docUrl: http://apisjson.org/
+
+      - name: OpenAPI
+        description: This uses OpenAPI to define access to all HTTP APIs.
+        docUrl: https://spec.openapis.org/oas/latest.html
+
+      - name: JSON Schema
+        description: This uses JSON Schema to define and validate all entities used.
+        docUrl: https://json-schema.org/specification
+
+      - name: Model Context Protocol
+        description: This uses MCP expressed as JSON schema to define each MCP server.
+        docUrl: https://modelcontextprotocol.io/
+
+      - name: Bruno Collections
+        description: This uses Bruno Collections to define each executable HTTP API integration.
+        docUrl: https://docs.usebruno.com/
+
+      - name: Bruno Environments
+        description: This uses Bruno Environments to store keys for each API to use in automation.
+        docUrl: https://docs.usebruno.com/secrets-management/overview
+
+      - name: API Commons
+        description: This uses an API Commons schema to define the plans and rate limits.
+        docUrl: https://apicommons.org/
+
+  - type: Services
+    data:
+
+      - aid: github
+        name: GitHub
+        description: >-
+          GitHub is a web-based platform for hosting and collaborating on
+          software projects built around Git, a version control system that
+          tracks changes to files over time.
+        docUrl: https://naftiko.github.io/technology/docs/services/github/
+        apisJson: https://raw.githubusercontent.com/api-evangelist/github/refs/heads/main/apis.yml
+        loginUrl: https://github.com/login
+        signUpUrl: https://github.com/signup
+        termsOfServiceUrl: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+        privacyPolicyUrl: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+
+maintainers:
+
+  - FN: Kin Lane
+    email: kinlane@naftiko.io
